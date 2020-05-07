@@ -6,14 +6,16 @@
   <title>Mohamed Elshawaf</title>
   <meta content='width=device-width, initial-scale=1.0' name='viewport'>
   <style>
-    a {
-      font-family: system-ui;
+    a,
+    span {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       font-size: 300px;
       color: black;
       font-weight: bold;
     }
 
-    a:hover {
+    #lnk:hover a,
+    #lnk:hover span {
       color: #CA1616;
     }
   </style>
@@ -21,7 +23,9 @@
 
 <body>
   <div id="content">
-    <a href="resume">&#x1F852;Resume</a>
+    <div id="lnk">
+      <span>&#x1F852;</span><a href="resume">Resume</a>
+    </div>
   </div>
 </body>
 
