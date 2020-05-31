@@ -28,13 +28,47 @@
       border: 3px solid;
       background: #eee;
       margin: auto;
-      /* padding: 15px 25px; */
       float: left;
     }
 
     img {
       width: 100%;
       height: 100%;
+    }
+
+    #projects>div {
+
+      display: inline-block;
+    }
+
+    #projects {
+      margin: auto;
+    }
+
+    .arrow {
+      border: solid black;
+      border-width: 0px 5px 5px 0px;
+      display: inline-block;
+      padding: 25px;
+    }
+
+    .right {
+      transform: rotate(-45deg);
+      -webkit-transform: rotate(-45deg);
+    }
+
+    .container {
+
+      display: flex;
+      align-items: center;
+      display: block;
+      font-size: 50px;
+      cursor: pointer;
+    }
+
+    .container i {
+      transition: all 0.4s ease;
+      transform-origin: center;
     }
   </style>
 </head>
@@ -45,19 +79,48 @@
       <span>&#x1F852;</span><a href="resume">Resume</a>
     </div>
 
-    <label style="display:block; font-size:50px">Work</label>
+    <p class="container" onclick="mutateDisplay()">
+      <i class="arrow right"></i>
+      Projects
+    </p>
+    <div id="projects" style="display:none;">
 
-    <div>
-      <label>Maps</label>
+      <div>
+        <label>Maps (Xamarin)</label>
 
-      <div style="align-content: center; display: flex;">
-        <iframe height="700" width="400" src="https://www.youtube.com/embed/HkYr47umImU">
-        </iframe>
+        <div style="align-content: center;">
+          <iframe height="700" width="500" src="https://www.youtube.com/embed/HkYr47umImU">
+          </iframe>
 
+        </div>
+      </div>
+      <div>
+        <label id="av-clone">Ana Vodafone UI clone (Flutter)</label>
+
+        <div style="align-content: center;">
+          <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:6661637793913020417?compact=1"
+            height="700" width="500" frameborder="0" allowfullscreen="" title="Embedded post"></iframe> </div>
       </div>
     </div>
-
   </div>
 </body>
+
+
+<script>
+  var isVisible = false;
+  function mutateDisplay() {
+    var el = document.getElementById("projects");
+    var arrow = document.getElementsByClassName("arrow")[0];
+    if (isVisible) {
+      el.style = "display:none;";
+      arrow.style.transform = "rotate(-45deg)"
+    }
+    else {
+      el.style = "display:block;";
+      arrow.style.transform = "rotate(45deg)"
+    }
+    isVisible = !isVisible;
+  }
+</script>
 
 </html>
