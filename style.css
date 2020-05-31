@@ -1,0 +1,73 @@
+@font-face {
+  font-family: SegoeUI;
+  src: url('assets/fonts/Segoe UI Bold.ttf');
+}
+
+* {
+  font-family: 'SegoeUI';
+}
+
+a,
+span {
+  font-size: 100px;
+  color: black;
+  font-weight: bold;
+}
+
+#lnk {
+  display: table;
+}
+
+#lnk:hover a,
+#lnk:hover span {
+  color: #ff5656;
+}
+
+#lnk span {
+  display: inline-block;
+}
+
+
+#projects>div {
+  display: inline-block;
+}
+
+#projects {
+  text-align: center;
+}
+
+.arrow {
+  display: inline-block;
+  font-style: normal;
+  font-size: 100px;
+  color: black;
+  font-weight: bold;
+}
+
+.projectsTtl {
+  display: inline-block;
+  align-items: center;
+  font-size: 100px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.projectsTtl>span {
+  transition: all 0.4s ease;
+  transform-origin: center;
+}
+
+.ttl {
+  font-size: 20px;
+  color: #ff5656;
+  font-weight: bold;
+  text-align: center;
+  display: block;
+  padding: 10px;
+}
+
+.framediv {
+  border: 3px solid #ff5656;
+  margin: 0px 50px;
+  align-content: center;
+}
