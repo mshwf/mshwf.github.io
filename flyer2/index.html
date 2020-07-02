@@ -1,0 +1,66 @@
+<html>
+
+<head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.0.0/p5.min.js"></script>
+    <script src="flyer.js"></script>
+    <script src="balls/walkers.js"></script>
+    <script src="balls/balls.js"></script>
+
+    <style>
+        table {
+            table-layout: auto;
+        }
+    </style>
+</head>
+<div id="balls-sec" style="display: none;">
+    <input id="number" type="number" placeholder="balls number" min="1" max="200">
+    <input type="button" value="Spill" onclick="spillBalls()">
+</div>
+
+<div>
+    <span style="color: red;">Use navigation keys</span>
+</div>
+<div id='canvas'></div>
+<table>
+    <tr>
+        <td></td>
+        <td><button type="button" onmousedown="move('u')">&#11205;</button>
+        </td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>
+            <button type="button" onclick="move('l')">&#11207;</button>
+        </td>
+        <td></td>
+        <td>
+            <button type="button" onclick="move('r')">&#11208;</button>
+        </td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>
+            <button type="button" onclick="move('d')">&#11206;</button>
+        </td>
+        <td></td>
+    </tr>
+</table>
+<script>
+    var game = new MyGame();
+    function setup() {
+        var canv = createCanvas(400, 800);
+        canv.parent("canvas");
+
+        background(51);
+        game.setup();
+    }
+
+
+    function draw() {
+        game.play();
+    }
+
+</script>
+</body>
+
+</html>
