@@ -8,8 +8,8 @@
             "type": "chrome",
             "request": "launch",
             "name": "Open index.html",
-            "file": "d:\\DevLib\\GitHub\\mshwf.github.io\\flyer\\index.html",
-            "webRoot": "d:\\DevLib\\GitHub\\mshwf.github.io\\flyer\\index.html"
+            "file": "d:\\DevLib\\GitHub\\mshwf.github.io\\Mates\\index.html",
+            "webRoot": "d:\\DevLib\\GitHub\\mshwf.github.io\\Mates\\index.html"
         }
     ]
 }

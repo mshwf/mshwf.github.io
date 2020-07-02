@@ -2,12 +2,16 @@ const side = 12;
 var balls_count = 5;
 var survived;
 var finished;
-var flashs;
+var flash;
 var goal;
 var goalEl;
 var goalDiv;
 var highestScore = 0;
-class FLyerGame {
+class MatesGame {
+
+    constructor() {
+        this.setup();
+    }
     setup() {
         survived = true;
         finished = false;
@@ -21,7 +25,7 @@ class FLyerGame {
         goalDiv.style.textDecoration = 'none';
         goalDiv.style.color = 'black';
         goalDiv.style.fontWeight = 'normal';
-        flashs = document.getElementsByClassName('colorDiv');
+        flash = document.getElementById('colorDiv');
         this.setFlash('black');
         var numInput = document.getElementById('number');
         var spillBtn = document.getElementById('spillBtn')
@@ -33,14 +37,9 @@ class FLyerGame {
                 event.preventDefault();
                 spillBtn.click();
             }
-            if (event.keyCode === 82)//R to restart
-            {
-                setup();
-            }
         });
 
         document.addEventListener("keyup", function (event) {
-
             if (event.keyCode === 82)//R to restart
             {
                 setup();
@@ -55,10 +54,7 @@ class FLyerGame {
         this.resetPos();
     }
     setFlash(color) {
-
-        [].forEach.call(flashs, function (el) {
-            el.style.backgroundColor = color
-        });
+        flash.style.backgroundColor = color;
     }
     resetPos() {
         this.acc = createVector(0, 0);
@@ -133,8 +129,6 @@ class FLyerGame {
             this.pos.add(this.vel);
         }
         this.edges();
-
-        // if (!finished)
         this.intersect();
     }
     intersect() {
@@ -220,11 +214,7 @@ class FLyerGame {
             this.vel.x *= 0.2;
         }
     }
-    playCongrates() {
-        finished = true;
-        flashs.style.backgroundColor = 'red';
-        this.setup();
-    }
+
     spillBalls() {
         var num = document.getElementById("number").value;
         if (num > 200) {

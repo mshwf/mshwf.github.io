@@ -1,9 +1,11 @@
 <html>
 
 <head>
-    <title>Flyer</title>
+    <title>Mates</title>
+    <link rel="icon" type="image/png" href="../assets/mates.ico">
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.0.0/p5.min.js"></script>
-    <script src="fLyerGame.js"></script>
+    <script src="matesGame.js"></script>
     <script src="ball.js"></script>
 
     <style>
@@ -38,7 +40,7 @@
         <span style="color: red;">Use keyboard navigation keys</span>
     </div>
     <div id='canvas'></div>
-    <div class="colorDiv" style="width: 400px;height: 50px; background-color: black;"></div>
+    <div id="colorDiv" style="width: 400px;height: 50px; background-color: black;"></div>
 
 </div>
 <div id="right">
@@ -49,23 +51,19 @@
         <span>Help:</span>
         <ul>
             <li>Hit only the ball with the same color.</li>
-            <li>Goal is evaluated by the target ball dimeter and the total number of balls.</li>
-            <li>Challenge your self by changing the number of balls.</li>
+            <li>Goal is evaluated using the target ball dimeter and the total number of balls.</li>
+            <li>Challenge your self by increasing the number of balls.</li>
             <li>Press 'r' to restart.</li>
         </ul>
     </di>
 </div>
 
 <script>
-    var game = new FLyerGame();
+    var game;
     function setup() {
-        var canv = createCanvas(400, 800);
-        canv.parent("canvas");
-
-        background(51);
-        game.setup();
+        createCanvas(400, 800).parent("canvas");
+        game = new MatesGame();
     }
-
 
     function draw() {
         game.play();
