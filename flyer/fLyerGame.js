@@ -33,6 +33,18 @@ class FLyerGame {
                 event.preventDefault();
                 spillBtn.click();
             }
+            if (event.keyCode === 82)//R to restart
+            {
+                setup();
+            }
+        });
+
+        document.addEventListener("keyup", function (event) {
+
+            if (event.keyCode === 82)//R to restart
+            {
+                setup();
+            }
         });
 
         spillBtn.addEventListener('click', this.spillBalls);
