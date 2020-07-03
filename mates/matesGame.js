@@ -49,6 +49,7 @@ class MatesGame {
         goalEl.style.textDecoration = 'none';
         goalEl.style.color = 'black';
         goalEl.style.fontWeight = 'normal';
+
         goalDiv.style.textDecoration = 'none';
         goalDiv.style.color = 'black';
         goalDiv.style.fontWeight = 'normal';
@@ -122,7 +123,7 @@ class MatesGame {
 
         if (keyIsDown(LEFT_ARROW)) {
             var a = createVector(-1.5, 0);
-            if (this.vel.x < -2)
+            if (this.vel.x <= -2)
                 a = createVector(0, 0);
 
             this.acc.add(a);
@@ -153,10 +154,9 @@ class MatesGame {
                         if (isTargetBool && survived) {
                             this.setFlash(randomColor);
                         }
-                        else {
+                        else if (!isTargetBool) {
                             survived = false;
                             this.failedGoal();
-
                         }
                     }
                 }
@@ -169,10 +169,9 @@ class MatesGame {
                             this.achievedGoal();
                         }
 
-                        else {
+                        else if (!isTargetBool) {
                             survived = false;
                             this.failedGoal();
-
                         }
                     }
                 }
