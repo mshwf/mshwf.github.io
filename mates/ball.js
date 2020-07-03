@@ -7,11 +7,11 @@ class Color {
 }
 
 class Ball {
-    constructor(x, y, dim, color) {
-        this.pos = createVector(x, y);
-        this.vel = createVector(-1, -1);
-        this.dim = dim;
-        this.color = color;
+    constructor(b) {
+        this.pos = createVector(b.x, b.y);
+        this.vel = createVector(random(-2, -1), random(-2, -1),);
+        this.dim = b.dim;
+        this.color = b.color;
     }
 }
 var lastFill;
@@ -20,12 +20,9 @@ var balls;
 class Balls {
     constructor(_balls) {
         balls = _balls;
-        this.registered = [];
     }
 
     update() {
-        this.registered = [];
-
         balls.forEach(ball => {
 
             if (ball.pos.x >= width - ball.dim / 2)
@@ -39,13 +36,6 @@ class Balls {
                 ball.vel.y += .5;
 
             ball.pos.add(ball.vel);
-
-            if (this.registered.some(p => p.x >= (ball.pos.x - ball.dim / 2) && p.x < (ball.pos.x + ball.dim / 2) &&
-                p.y >= (ball.pos.y - ball.dim / 2) && p.y < (ball.pos.y + ball.dim / 2))) {
-                ball.pos.x += -1;
-                ball.pos.y += -1;
-            }
-            this.registered.push(ball.pos);
         });
     }
 

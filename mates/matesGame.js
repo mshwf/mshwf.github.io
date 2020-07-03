@@ -6,10 +6,17 @@ var goal;
 var goalEl;
 var goalDiv;
 var highestScore = 0;
+var numInput;
+var spillBtn;
+
 class MatesGame {
 
     constructor() {
         this.setup();
+        spillBtn.addEventListener('click', e => this.spillBalls(e));
+        numInput.addEventListener("keyup", e => this.enterBalls(e));
+        document.addEventListener("keyup", e => this.keyEventHandler(e));
+
     }
     setup() {
         survived = true;
@@ -18,27 +25,10 @@ class MatesGame {
         goalEl = document.getElementById('goal');
         goalDiv = document.getElementById('goalDiv');
         flashDiv = document.getElementById('flashDiv');
-        var numInput = document.getElementById('number');
-        var spillBtn = document.getElementById('spillBtn')
+        numInput = document.getElementById('number');
+        spillBtn = document.getElementById('spillBtn');
         this.resetStyles();
         numInput.value = balls_count;
-
-        numInput.addEventListener("keyup", function (event) {
-            if (event.keyCode === 13)//enter key
-            {
-                event.preventDefault();
-                spillBtn.click();
-            }
-        });
-
-        document.addEventListener("keyup", function (event) {
-            if (event.keyCode === 82)//R to restart
-            {
-                setup();
-            }
-        });
-
-        spillBtn.addEventListener('click', this.spillBalls);
         stroke(0);
         strokeWeight(0);
 
@@ -67,12 +57,12 @@ class MatesGame {
         document.getElementById("balls-sec").style.display = "table";
         var mBalls = [];
         for (var i = 0; i < balls_count; i++) {
-            mBalls.push(new Ball(
-                (random(width)),
-                (noise(height)),
-                map(noise(i), 0, 1, 5, 50),
-                new Color(Math.round(random(0, 255)), Math.round(random(0, 255)), Math.round(random(0, 255)))
-            ));
+            mBalls.push(new Ball({
+                x: (random(width)),
+                y: (noise(height)),
+                dim: map(noise(i), 0, 1, 5, 50),
+                color: new Color(Math.round(random(0, 255)), Math.round(random(0, 255)), Math.round(random(0, 255)))
+            }));
         }
         this._balls = new Balls(mBalls);
     }
@@ -213,13 +203,41 @@ class MatesGame {
     }
 
     spillBalls() {
-        var num = document.getElementById("number").value;
+        this.setBallsNum(numInput.value);
+    }
+
+    setBallsNum(num) {
         if (num > 200) {
-            document.getElementById("number").value = 200;
+            numInput.value = 200;
             num = 200;
             alert('Sorry, you have to pay for extra balls');
         }
+        else if (num <= 0) {
+            num = 0;
+        }
         balls_count = num;
-        setup();
+        this.setup();
+    }
+
+    enterBalls(event) {
+        if (event.keyCode === 13)//enter key
+        {
+            event.preventDefault();
+            spillBtn.click();
+        }
+    }
+    keyEventHandler(event) {
+        if (event.keyCode === 82)//R to restart
+        {
+            this.setup();
+        }
+        else if (event.keyCode === 107)//+ to increase ball and restart
+        {
+            this.setBallsNum(++balls_count);
+        }
+        else if (event.keyCode === 109)//- to decrease ball and restart
+        {
+            this.setBallsNum(--balls_count);
+        }
     }
 }
