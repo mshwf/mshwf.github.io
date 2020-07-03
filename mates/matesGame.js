@@ -138,47 +138,43 @@ class MatesGame {
         for (var i = 0; i < balls.length; i++) {
             var ball = balls[i];
             var isTargetBool = ball.color.r == lastFill.r && ball.color.g == lastFill.g && ball.color.b == lastFill.b;
-            {
-                var rad = ball.dim / 2;
+            var rad = ball.dim / 2;
 
-                var left = Math.min(this.pos.x, ball.pos.x - rad);
-                var right = Math.max(this.pos.x + side, ball.pos.x + rad);
+            var left = Math.min(this.pos.x, ball.pos.x - rad);
+            var right = Math.max(this.pos.x + side, ball.pos.x + rad);
 
-                var top = Math.min(this.pos.y, ball.pos.y - rad);
-                var down = Math.max(this.pos.y + side, ball.pos.y + rad);
-                var touched = rad + (side / 2);
-                var randomColor = `rgb(${random(255)},${random(255)},${random(255)})`;
-                if (right - left > down - top) {
-                    //compare with horizontal
-                    if (Math.abs(ball.pos.x - (this.pos.x + (side / 2))) <= touched) {
-                        if (isTargetBool && survived) {
-                            this.setFlash(randomColor);
-                        }
-                        else if (!isTargetBool) {
-                            survived = false;
-                            this.failedGoal();
-                        }
+            var top = Math.min(this.pos.y, ball.pos.y - rad);
+            var down = Math.max(this.pos.y + side, ball.pos.y + rad);
+            var touched = rad + (side / 2);
+            if (right - left > down - top) {
+                //compare with horizontal
+                if (Math.abs(ball.pos.x - (this.pos.x + (side / 2))) <= touched) {
+                    if (isTargetBool && survived) {
+                        this.achievedGoal();
+                    }
+                    else if (!isTargetBool) {
+                        this.failedGoal();
                     }
                 }
+            }
 
-                else {
-                    //compare with vertical
-                    if (Math.abs(ball.pos.y - (this.pos.y + (side / 2))) <= touched) {
-                        if (isTargetBool && survived) {
-                            this.setFlash(randomColor);
-                            this.achievedGoal();
-                        }
+            else {
+                //compare with vertical
+                if (Math.abs(ball.pos.y - (this.pos.y + (side / 2))) <= touched) {
+                    if (isTargetBool && survived) {
+                        this.achievedGoal();
+                    }
 
-                        else if (!isTargetBool) {
-                            survived = false;
-                            this.failedGoal();
-                        }
+                    else if (!isTargetBool) {
+                        this.failedGoal();
                     }
                 }
             }
         }
     }
     achievedGoal() {
+        var randomColor = `rgb(${random(255)},${random(255)},${random(255)})`;
+        this.setFlash(randomColor);
         goalEl.style.fontWeight = 'bold';
         goalDiv.style.fontWeight = 'bold';
         if (goal > highestScore) {
@@ -188,6 +184,7 @@ class MatesGame {
 
     }
     failedGoal() {
+        survived = false;
         goalEl.style.textDecoration = 'line-through';
         goalDiv.style.textDecoration = 'line-through';
         goalEl.style.color = 'red';
@@ -201,7 +198,7 @@ class MatesGame {
 
         if (this.pos.y <= 0) {
             this.pos.y = 0;
-            this.vel.y *= 0;
+            this.vel.y *= .2;
         }
 
         if (this.pos.x >= width - side) {
