@@ -1,8 +1,7 @@
 const side = 12;
 var balls_count = 5;
 var survived;
-var finished;
-var flash;
+var flashDiv;
 var goal;
 var goalEl;
 var goalDiv;
@@ -14,21 +13,14 @@ class MatesGame {
     }
     setup() {
         survived = true;
-        finished = false;
         goal = 50 * (balls_count / lastDim);
 
         goalEl = document.getElementById('goal');
         goalDiv = document.getElementById('goalDiv');
-        goalEl.style.textDecoration = 'none';
-        goalEl.style.color = 'black';
-        goalEl.style.fontWeight = 'normal';
-        goalDiv.style.textDecoration = 'none';
-        goalDiv.style.color = 'black';
-        goalDiv.style.fontWeight = 'normal';
-        flash = document.getElementById('colorDiv');
-        this.setFlash('black');
+        flashDiv = document.getElementById('flashDiv');
         var numInput = document.getElementById('number');
         var spillBtn = document.getElementById('spillBtn')
+        this.resetStyles();
         numInput.value = balls_count;
 
         numInput.addEventListener("keyup", function (event) {
@@ -53,8 +45,17 @@ class MatesGame {
         this.setupBalls();
         this.resetPos();
     }
+    resetStyles() {
+        goalEl.style.textDecoration = 'none';
+        goalEl.style.color = 'black';
+        goalEl.style.fontWeight = 'normal';
+        goalDiv.style.textDecoration = 'none';
+        goalDiv.style.color = 'black';
+        goalDiv.style.fontWeight = 'normal';
+        this.setFlash('black');
+    }
     setFlash(color) {
-        flash.style.backgroundColor = color;
+        flashDiv.style.backgroundColor = color;
     }
     resetPos() {
         this.acc = createVector(0, 0);
