@@ -8,6 +8,8 @@ var goalDiv;
 var highestScore = 0;
 var numInput;
 var spillBtn;
+var ballsCounter;
+var highestScoreEl;
 
 class MatesGame {
 
@@ -20,20 +22,22 @@ class MatesGame {
     }
     setup() {
         survived = true;
-        goal = 50 * (balls_count / lastDim);
-
+        this.getHTMLelements();
+        this.resetStyles();
+        numInput.value = balls_count;
+        stroke(0);
+        strokeWeight(0);
+        this.setupBalls();
+        this.resetPos();
+    }
+    getHTMLelements() {
         goalEl = document.getElementById('goal');
         goalDiv = document.getElementById('goalDiv');
         flashDiv = document.getElementById('flashDiv');
         numInput = document.getElementById('number');
         spillBtn = document.getElementById('spillBtn');
-        this.resetStyles();
-        numInput.value = balls_count;
-        stroke(0);
-        strokeWeight(0);
-
-        this.setupBalls();
-        this.resetPos();
+        ballsCounter = document.getElementById('balls-counter');
+        highestScoreEl = document.getElementById('highestScore');
     }
     resetStyles() {
         goalEl.style.textDecoration = 'none';
@@ -43,7 +47,6 @@ class MatesGame {
         goalDiv.style.textDecoration = 'none';
         goalDiv.style.color = 'black';
         goalDiv.style.fontWeight = 'normal';
-        this.setFlash('black');
     }
     setFlash(color) {
         flashDiv.style.backgroundColor = color;
@@ -54,13 +57,13 @@ class MatesGame {
         this.pos = createVector(20, height - side);
     }
     setupBalls() {
-        document.getElementById("balls-sec").style.display = "table";
+        ballsCounter.style.display = "table";
         var mBalls = [];
         for (var i = 0; i < balls_count; i++) {
             mBalls.push(new Ball({
-                x: (random(width)),
-                y: (noise(height)),
-                dim: map(noise(i), 0, 1, 5, 50),
+                x: random(0, width),
+                y: 0,
+                di: random(5, 50),
                 color: new Color(Math.round(random(0, 255)), Math.round(random(0, 255)), Math.round(random(0, 255)))
             }));
         }
@@ -128,7 +131,7 @@ class MatesGame {
         for (var i = 0; i < balls.length; i++) {
             var ball = balls[i];
             var isTargetBool = ball.color.r == lastFill.r && ball.color.g == lastFill.g && ball.color.b == lastFill.b;
-            var rad = ball.dim / 2;
+            var rad = ball.di / 2;
 
             var left = Math.min(this.pos.x, ball.pos.x - rad);
             var right = Math.max(this.pos.x + side, ball.pos.x + rad);
@@ -169,7 +172,7 @@ class MatesGame {
         goalDiv.style.fontWeight = 'bold';
         if (goal > highestScore) {
             highestScore = goal;
-            document.getElementById('highestScore').innerHTML = goal;
+            highestScoreEl.innerHTML = goal;
         }
 
     }

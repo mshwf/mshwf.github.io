@@ -9,8 +9,8 @@ class Color {
 class Ball {
     constructor(b) {
         this.pos = createVector(b.x, b.y);
-        this.vel = createVector(random(-2, -1), random(-2, -1),);
-        this.dim = b.dim;
+        this.vel = createVector(random(-2, 5), random(-2, 5)).setMag(random(3, 5));
+        this.di = b.di;
         this.color = b.color;
     }
 }
@@ -25,15 +25,11 @@ class Balls {
     update() {
         balls.forEach(ball => {
 
-            if (ball.pos.x >= width - ball.dim / 2)
-                ball.vel.x += -.1;
-            if (ball.pos.x <= 0 + ball.dim / 2)
-                ball.vel.x += .1;
+            if ((ball.pos.x <= ball.di / 2 && ball.vel.x < 0) || (ball.pos.x >= width - ball.di / 2 && ball.vel.x > 0))
+                ball.vel.x *= -1;
 
-            if (ball.pos.y >= height - ball.dim / 2)
-                ball.vel.y += -.5;
-            if (ball.pos.y <= 0 + ball.dim / 2)
-                ball.vel.y += .5;
+            if ((ball.pos.y <= ball.di / 2 && ball.vel.y < 0) || (ball.pos.y >= height - ball.di / 2 && ball.vel.y > 0))
+                ball.vel.y *= -1;
 
             ball.pos.add(ball.vel);
         });
@@ -42,9 +38,9 @@ class Balls {
     show() {
         balls.forEach(ball => {
             fill(ball.color.r, ball.color.g, ball.color.b);
-            ellipse(ball.pos.x, ball.pos.y, ball.dim);
+            ellipse(ball.pos.x, ball.pos.y, ball.di);
             lastFill = ball.color;
-            lastDim = ball.dim;
+            lastDim = ball.di;
         });
     }
 }
