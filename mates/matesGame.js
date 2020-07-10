@@ -1,5 +1,5 @@
 const side = 12;
-const maxBalls = 200;
+const maxBalls = 50;
 var balls_count = 5;
 var highestScore = 0;
 var survived;
