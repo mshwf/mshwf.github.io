@@ -84,7 +84,7 @@ class MatesGame {
 
 
         if (keyIsDown(UP_ARROW)) {
-
+            this.vel.x = 0
             var a = createVector(0, -1.5);
             if (this.vel.y <= -2)
                 a = createVector(0, 0);
@@ -94,6 +94,7 @@ class MatesGame {
         }
 
         if (keyIsDown(DOWN_ARROW)) {
+            this.vel.x = 0
             var a = createVector(0, 1.5);
             if (this.vel.y > 2)
                 a = createVector(0, 0);
@@ -105,6 +106,7 @@ class MatesGame {
         }
 
         if (keyIsDown(RIGHT_ARROW)) {
+            this.vel.y = 0
             var a = createVector(1.5, 0);
             if (this.vel.x > 2)
                 a = createVector(0, 0);
@@ -115,6 +117,7 @@ class MatesGame {
         }
 
         if (keyIsDown(LEFT_ARROW)) {
+            this.vel.y = 0
             var a = createVector(-1.5, 0);
             if (this.vel.x <= -2)
                 a = createVector(0, 0);
