@@ -14,7 +14,7 @@ class MyGame {
     resetPos() {
         this.acc = createVector(10, 10);
         this.vel = createVector(0, 0);
-        this.pos = createVector(20, sqrInitY);
+        this.pos = createVector(width / 2, sqrInitY);
     }
     up() {
         var a = createVector(0, -1.5);

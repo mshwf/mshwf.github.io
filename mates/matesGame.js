@@ -141,7 +141,7 @@ class MatesGame {
             var touched = rad + (side / 2);
             if (right - left > down - top) {
                 //compare with horizontal
-                if (Math.abs(ball.pos.x - (this.pos.x + (side / 2))) <= touched) {
+                if (Math.abs(ball.pos.x - (this.pos.x + side / 2)) <= touched) {
                     if (isTargetBool && survived) {
                         this.achievedGoal();
                     }
@@ -153,7 +153,7 @@ class MatesGame {
 
             else {
                 //compare with vertical
-                if (Math.abs(ball.pos.y - (this.pos.y + (side / 2))) <= touched) {
+                if (Math.abs(ball.pos.y - (this.pos.y + side / 2)) <= touched) {
                     if (isTargetBool && survived) {
                         this.achievedGoal();
                     }
