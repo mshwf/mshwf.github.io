@@ -14,9 +14,10 @@ class Ball {
         this.color = b.color;
     }
 }
-var lastFill;
-var lastDim;
+var targetFill;
+var targetDi;
 var balls;
+var strokeW = 2;
 class Balls {
     constructor(_balls) {
         balls = _balls;
@@ -36,11 +37,20 @@ class Balls {
     }
 
     show() {
-        balls.forEach(ball => {
+        for (let index = 0; index < balls.length; index++) {
+            if (index == balls.length - 1) {
+                strokeWeight(strokeW);
+                stroke(255, 255, 255);
+            }
+            else
+                strokeWeight(0);
+
+            const ball = balls[index];
             fill(ball.color.r, ball.color.g, ball.color.b);
             ellipse(ball.pos.x, ball.pos.y, ball.di);
-            lastFill = ball.color;
-            lastDim = ball.di;
-        });
+            targetFill = ball.color;
+            targetDi = ball.di;
+        }
+
     }
 }

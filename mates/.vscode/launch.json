@@ -5,11 +5,10 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "type": "edge",
+            "type": "chrome",
             "request": "launch",
-            "name": "Open index.html",
-            "file": "D:\\DevLib\\GitHub\\mshwf.github.io\\Mates\\index.html",
-            "webRoot": "D:\\DevLib\\GitHub\\mshwf.github.io\\Mates\\index.html"
+            "name": "Launch Chrome against localhost",
+            "url": "${workspaceFolder}/index.html",
         }
     ]
 }

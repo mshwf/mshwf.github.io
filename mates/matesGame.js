@@ -1,11 +1,12 @@
 const side = 12;
+const maxBalls = 200;
 var balls_count = 5;
+var highestScore = 0;
 var survived;
 var flashDiv;
 var goal;
 var goalEl;
 var goalDiv;
-var highestScore = 0;
 var numInput;
 var spillBtn;
 var ballsCounter;
@@ -14,13 +15,12 @@ var highestScoreEl;
 class MatesGame {
 
     constructor() {
-        this.setup();
+        this.setupGame();
         spillBtn.addEventListener('click', e => this.spillBalls(e));
         numInput.addEventListener("keyup", e => this.enterBalls(e));
-        document.addEventListener("keyup", e => this.keyEventHandler(e));
-
+        document.addEventListener("keydown", e => this.keyEventHandler(e));
     }
-    setup() {
+    setupGame() {
         survived = true;
         this.getHTMLelements();
         this.resetStyles();
@@ -73,7 +73,7 @@ class MatesGame {
         background(51);
         this._balls.show();
         this._balls.update();
-        goal = Math.round(50 * (balls_count / lastDim));
+        goal = Math.round(50 * balls_count / targetDi);
         goalEl.innerHTML = goal;
 
         square(this.pos.x, this.pos.y, side);
@@ -130,7 +130,7 @@ class MatesGame {
         this.setFlash("black");
         for (var i = 0; i < balls.length; i++) {
             var ball = balls[i];
-            var isTargetBool = ball.color.r == lastFill.r && ball.color.g == lastFill.g && ball.color.b == lastFill.b;
+            var isTargetBool = ball.color.r == targetFill.r && ball.color.g == targetFill.g && ball.color.b == targetFill.b;
             var rad = ball.di / 2;
 
             var left = Math.min(this.pos.x, ball.pos.x - rad);
@@ -186,12 +186,12 @@ class MatesGame {
     edges() {
         if (this.pos.y >= height - side) {
             this.pos.y = height - side;
-            this.vel.y *= -.2;
+            this.vel.y *= -0.2;
         }
 
         if (this.pos.y <= 0) {
             this.pos.y = 0;
-            this.vel.y *= .2;
+            this.vel.y *= 0.2;
         }
 
         if (this.pos.x >= width - side) {
@@ -210,16 +210,16 @@ class MatesGame {
     }
 
     setBallsNum(num) {
-        if (num > 200) {
-            numInput.value = 200;
-            num = 200;
+        if (num > maxBalls) {
+            numInput.value = maxBalls;
+            num = maxBalls;
             alert('Sorry, you have to pay for extra balls');
         }
         else if (num <= 0) {
             num = 0;
         }
         balls_count = num;
-        this.setup();
+        this.setupGame();
     }
 
     enterBalls(event) {
@@ -232,13 +232,13 @@ class MatesGame {
     keyEventHandler(event) {
         if (event.keyCode === 82)//R to restart
         {
-            this.setup();
+            this.setupGame();
         }
-        else if (event.keyCode === 107)//+ to increase ball and restart
+        else if (event.keyCode === 107)//+ to add 1 ball and restart
         {
             this.setBallsNum(++balls_count);
         }
-        else if (event.keyCode === 109)//- to decrease ball and restart
+        else if (event.keyCode === 109)//- to subtract 1 ball and restart
         {
             this.setBallsNum(--balls_count);
         }
