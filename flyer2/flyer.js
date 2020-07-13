@@ -12,7 +12,7 @@ class MyGame {
         stroke(255, 255, 255);
     }
     resetPos() {
-        this.acc = createVector(10, 10);
+        this.acc = createVector(0, 0);
         this.vel = createVector(0, 0);
         this.pos = createVector(width / 2, sqrInitY);
     }
@@ -39,37 +39,32 @@ class MyGame {
 
         }
 
+        //#region all directions
+        // if (keyIsDown(DOWN_ARROW)) {
+        //     var a = createVector(0, .10);
+        //     if (this.vel.y > 2)
+        //         a = createVector(0, 0);
 
-        if (keyIsDown(DOWN_ARROW)) {
-            var a = createVector(0, .10);
-            if (this.vel.y > 2)
-                a = createVector(0, 0);
+        //     this.acc.y += 5;
+        //     this.vel.add(this.acc);
+        //     this.pos.add(this.vel);
 
-            this.acc.y += 5;
-            this.vel.add(this.acc);
-            this.pos.add(this.vel);
+        // }
 
-        }
+        // if (keyIsDown(RIGHT_ARROW)) {
+        //     this.acc.set(.2, 0);
+        //     this.vel.add(this.acc);
+        //     this.pos.add(this.vel);
+        // }
 
-        if (keyIsDown(RIGHT_ARROW)) {
-            this.acc.set(.2, 0);
-            this.vel.add(this.acc);
-            this.pos.add(this.vel);
-        }
+        // if (keyIsDown(LEFT_ARROW)) {
+        //     this.acc.set(-.2, 0);
+        //     this.vel.add(this.acc);
+        //     this.pos.add(this.vel);
 
-        if (keyIsDown(LEFT_ARROW)) {
-            this.acc.set(-.2, 0);
-            this.vel.add(this.acc);
-            this.pos.add(this.vel);
-
-        }
+        // }
+        //#endregion
         this.edges();
-    }
-
-    update() {
-        this.vel.add(this.acc);
-        this.pos.add(this.vel);
-        this.acc.set(0, .15);
     }
 
     edges() {

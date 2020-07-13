@@ -1,17 +1,20 @@
-const side = 12;
+const constSide = 12;
 const maxBalls = 50;
 var balls_count = 5;
 var highestScore = 0;
+var side;
 var survived;
 var flashDiv;
 var goal;
-var goalEl;
-var goalDiv;
+var scoreValEl;
+var scoreDiv;
+var nextGoal;
 var numInput;
 var spillBtn;
 var ballsCounter;
 var highestScoreEl;
-
+var matesCount;
+var currentScore = 0;
 class MatesGame {
 
     constructor() {
@@ -21,8 +24,12 @@ class MatesGame {
         document.addEventListener("keydown", e => this.keyEventHandler(e));
     }
     setupGame() {
-        survived = true;
         this.getHTMLelements();
+        scoreValEl.innerHTML = 0;
+        matesCount = 0;
+        currentScore = 0;
+        side = constSide;
+        survived = true;
         this.resetStyles();
         numInput.value = balls_count;
         stroke(0);
@@ -31,22 +38,23 @@ class MatesGame {
         this.resetPos();
     }
     getHTMLelements() {
-        goalEl = document.getElementById('goal');
-        goalDiv = document.getElementById('goalDiv');
+        scoreValEl = document.getElementById('scoreValEl');
+        scoreDiv = document.getElementById('scoreDiv');
+        nextGoal = document.getElementById('nextGoal');
+        highestScoreEl = document.getElementById('highestScore');
         flashDiv = document.getElementById('flashDiv');
         numInput = document.getElementById('number');
         spillBtn = document.getElementById('spillBtn');
         ballsCounter = document.getElementById('balls-counter');
-        highestScoreEl = document.getElementById('highestScore');
     }
     resetStyles() {
-        goalEl.style.textDecoration = 'none';
-        goalEl.style.color = 'black';
-        goalEl.style.fontWeight = 'normal';
+        scoreValEl.style.textDecoration = 'none';
+        scoreValEl.style.color = 'black';
+        scoreValEl.style.fontWeight = 'normal';
 
-        goalDiv.style.textDecoration = 'none';
-        goalDiv.style.color = 'black';
-        goalDiv.style.fontWeight = 'normal';
+        scoreDiv.style.textDecoration = 'none';
+        scoreDiv.style.color = 'black';
+        scoreDiv.style.fontWeight = 'normal';
     }
     setFlash(color) {
         flashDiv.style.backgroundColor = color;
@@ -73,8 +81,8 @@ class MatesGame {
         background(51);
         this._balls.show();
         this._balls.update();
-        goal = Math.round(50 * balls_count / targetDi);
-        goalEl.innerHTML = goal;
+        goal = Math.round(50 * balls.length / targetDi);
+        nextGoal.innerHTML = goal;
 
         square(this.pos.x, this.pos.y, side);
 
@@ -133,7 +141,10 @@ class MatesGame {
         this.setFlash("black");
         for (var i = 0; i < balls.length; i++) {
             var ball = balls[i];
-            var isTargetBool = ball.color.r == targetFill.r && ball.color.g == targetFill.g && ball.color.b == targetFill.b;
+            var isTargetBool =
+                ball.color.r === targetFill.r &&
+                ball.color.g === targetFill.g &&
+                ball.color.b === targetFill.b;
             var rad = ball.di / 2;
 
             var left = Math.min(this.pos.x, ball.pos.x - rad);
@@ -145,46 +156,55 @@ class MatesGame {
             if (right - left > down - top) {
                 //compare with horizontal
                 if (Math.abs(ball.pos.x - (this.pos.x + side / 2)) <= touched) {
-                    if (isTargetBool && survived) {
+                    if (isTargetBool && survived)
                         this.achievedGoal();
-                    }
-                    else if (!isTargetBool) {
+
+                    else if (!isTargetBool)
                         this.failedGoal();
-                    }
+
                 }
             }
 
             else {
                 //compare with vertical
                 if (Math.abs(ball.pos.y - (this.pos.y + side / 2)) <= touched) {
-                    if (isTargetBool && survived) {
+                    if (isTargetBool && survived)
                         this.achievedGoal();
-                    }
 
-                    else if (!isTargetBool) {
+                    else if (!isTargetBool)
                         this.failedGoal();
-                    }
                 }
             }
         }
     }
     achievedGoal() {
+        balls.pop();
+        side++;
+        matesCount++;
+
         var randomColor = `rgb(${random(255)},${random(255)},${random(255)})`;
         this.setFlash(randomColor);
-        goalEl.style.fontWeight = 'bold';
-        goalDiv.style.fontWeight = 'bold';
-        if (goal > highestScore) {
-            highestScore = goal;
-            highestScoreEl.innerHTML = goal;
+        currentScore += goal;
+        scoreValEl.style.fontWeight = 'bold';
+        scoreValEl.innerHTML = currentScore;
+        scoreDiv.style.fontWeight = 'bold';
+        if (currentScore > highestScore) {
+            highestScore = currentScore;
+            highestScoreEl.innerHTML = highestScore;
         }
 
     }
     failedGoal() {
         survived = false;
-        goalEl.style.textDecoration = 'line-through';
-        goalDiv.style.textDecoration = 'line-through';
-        goalEl.style.color = 'red';
-        goalDiv.style.color = 'red';
+        scoreValEl.style.textDecoration = 'line-through';
+        scoreDiv.style.textDecoration = 'line-through';
+        scoreValEl.style.color = 'red';
+        scoreDiv.style.color = 'red';
+
+        for (let index = 0; index < balls.length; index++) {
+            var ball = balls[index];
+            ball.vel.x = 0;
+        }
     }
     edges() {
         if (this.pos.y >= height - side) {
