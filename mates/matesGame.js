@@ -27,6 +27,7 @@ class MatesGame {
         this.getHTMLelements();
         scoreValEl.innerHTML = 0;
         matesCount = 0;
+        currentScore = 0;
         side = constSide;
         survived = true;
         this.resetStyles();
@@ -140,8 +141,10 @@ class MatesGame {
         this.setFlash("black");
         for (var i = 0; i < balls.length; i++) {
             var ball = balls[i];
-            if (ball.isMate) continue;
-            var isTargetBool = ball.color.r == targetFill.r && ball.color.g == targetFill.g && ball.color.b == targetFill.b;
+            var isTargetBool =
+                ball.color.r === targetFill.r &&
+                ball.color.g === targetFill.g &&
+                ball.color.b === targetFill.b;
             var rad = ball.di / 2;
 
             var left = Math.min(this.pos.x, ball.pos.x - rad);
@@ -153,39 +156,36 @@ class MatesGame {
             if (right - left > down - top) {
                 //compare with horizontal
                 if (Math.abs(ball.pos.x - (this.pos.x + side / 2)) <= touched) {
-                    if (isTargetBool && survived) {
-                        balls.pop();
-                        ball.isMate = true;
-                        side++;
-                        matesCount++;
+                    if (isTargetBool && survived)
                         this.achievedGoal();
-                    }
-                    else if (!isTargetBool) {
+
+                    else if (!isTargetBool)
                         this.failedGoal();
-                    }
+
                 }
             }
 
             else {
                 //compare with vertical
                 if (Math.abs(ball.pos.y - (this.pos.y + side / 2)) <= touched) {
-                    if (isTargetBool && survived) {
+                    if (isTargetBool && survived)
                         this.achievedGoal();
-                    }
 
-                    else if (!isTargetBool) {
+                    else if (!isTargetBool)
                         this.failedGoal();
-                    }
                 }
             }
         }
     }
     achievedGoal() {
+        balls.pop();
+        side++;
+        matesCount++;
+
         var randomColor = `rgb(${random(255)},${random(255)},${random(255)})`;
         this.setFlash(randomColor);
-        scoreValEl.style.fontWeight = 'bold';
-        // var oldScore = parseInt(scoreValEl.innerText);
         currentScore += goal;
+        scoreValEl.style.fontWeight = 'bold';
         scoreValEl.innerHTML = currentScore;
         scoreDiv.style.fontWeight = 'bold';
         if (currentScore > highestScore) {
@@ -202,9 +202,8 @@ class MatesGame {
         scoreDiv.style.color = 'red';
 
         for (let index = 0; index < balls.length; index++) {
-            const ball = balls[index];
+            var ball = balls[index];
             ball.vel.x = 0;
-            ball.acc.y = 10;
         }
     }
     edges() {

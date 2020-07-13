@@ -13,7 +13,6 @@ class Ball {
         this.vel = createVector(random(-2, 5), random(-2, 5)).setMag(random(3, 5));
         this.di = b.di;
         this.color = b.color;
-        this.isMate = false;
     }
 }
 var targetFill;
@@ -27,19 +26,19 @@ class Balls {
 
     update() {
         balls.forEach(ball => {
-
-            if ((ball.pos.x <= ball.di / 2 && ball.vel.x < 0) || (ball.pos.x >= width - ball.di / 2 && ball.vel.x > 0))
-                ball.vel.x *= -1;
-
-            if ((ball.pos.y <= ball.di / 2 && ball.vel.y < 0) || (ball.pos.y >= height - ball.di / 2 && ball.vel.y > 0))
-                ball.vel.y *= -1;
-
-            ball.vel.add(ball.acc);
-            ball.pos.add(ball.vel);
             if (!survived) {
+                ball.acc = createVector(0, 1);
                 if (ball.pos.y + ball.di / 2 > height)
                     ball.pos.y = height - ball.di / 2;
             }
+
+            if ((ball.pos.x <= ball.di / 2 && ball.vel.x < 0) || (ball.pos.x >= width - ball.di / 2 && ball.vel.x > 0))
+                ball.vel.x *= survived ? -1 : 0;
+            if ((ball.pos.y <= ball.di / 2 && ball.vel.y < 0) || (ball.pos.y >= height - ball.di / 2 && ball.vel.y > 0))
+                ball.vel.y *= survived ? -1 : -.5;
+            ball.vel.add(ball.acc);
+            ball.pos.add(ball.vel);
+
         });
     }
 
