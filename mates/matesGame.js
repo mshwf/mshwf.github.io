@@ -1,18 +1,23 @@
-const constSide = 12;
-const maxBalls = 50;
+const CONST_SIDE = 12;
+const MAX_BALLS = 50;
+
+const PLUS_CODE = 107;
+const MINUS_CODE = 109;
+const ENTER_CODE = 13;
+const R_CODE = 82;
 var balls_count = 5;
 var highestScore = 0;
 var highestLevel = 0;
+var currentScore = 0;
+var isBgImg = true;
+var pause = true;
 var side;
 var survived;
 var goal;
 var matesCount;
-var currentScore = 0;
 var bgImg;
-var isBgImg = true;
-var pause = true;
 
-//#region tags
+//#region HTML tags
 var scoreValEl;
 var scoreDiv;
 var nextGoal;
@@ -20,17 +25,13 @@ var highestScoreEl;
 var highestLevelEl;
 var flashDiv;
 var numInput;
-var spillBtn;
+var startBtn;
 var ballsCounter;
 var bgDiv;
 var check_bg;
 var imgSource;
 //#endregion
-var i = 0;
 
-function bgDivClicked() {
-    console.log('op');
-}
 class MatesGame {
 
     constructor() {
@@ -43,7 +44,7 @@ class MatesGame {
         scoreValEl.innerHTML = 0;
         matesCount = 0;
         currentScore = 0;
-        side = constSide;
+        side = CONST_SIDE;
         survived = true;
         this.resetStyles();
         numInput.value = balls_count;
@@ -60,8 +61,8 @@ class MatesGame {
         highestLevelEl = document.getElementById('highestLevel');
         flashDiv = document.getElementById('flashDiv');
         numInput = document.getElementById('number');
-        spillBtn = document.getElementById('spillBtn');
-        ballsCounter = document.getElementById('balls-counter');
+        startBtn = document.getElementById('startBtn');
+        ballsCounter = document.getElementById('ballsCounter');
         bgDiv = document.getElementById('bgDiv');
         check_bg = document.getElementById('check_bg');
         imgSource = document.getElementById('imgSource');
@@ -71,7 +72,7 @@ class MatesGame {
             isBgImg = check_bg.checked;
             imgSource.style.display = isBgImg ? 'block' : 'none';
         });
-        spillBtn.addEventListener('click', e => this.spillBalls(e));
+        startBtn.addEventListener('click', e => this.startNew(e));
         numInput.addEventListener("keyup", e => this.enterBalls(e));
         document.addEventListener("keydown", e => this.keyEventHandler(e.keyCode));
     }
@@ -226,7 +227,7 @@ class MatesGame {
                 highestLevel = matesCount;
                 highestLevelEl.innerHTML = matesCount;
             }
-            this.keyEventHandler(107);
+            this.keyEventHandler(PLUS_CODE);
         }
 
     }
@@ -264,18 +265,14 @@ class MatesGame {
         }
     }
 
-    spillBalls() {
-        this.setBallsNum(numInput.value);
-    }
-    changeBG() {
-
-        console.log(random(10))
+    startNew() {
+        this.setBallsNumAndSetup(numInput.value);
     }
 
-    setBallsNum(num) {
-        if (num > maxBalls) {
-            numInput.value = maxBalls;
-            num = maxBalls;
+    setBallsNumAndSetup(num) {
+        if (num > MAX_BALLS) {
+            numInput.value = MAX_BALLS;
+            num = MAX_BALLS;
             alert('Sorry, you have to pay for extra balls');
         }
         else if (num <= 0) {
@@ -286,33 +283,34 @@ class MatesGame {
     }
 
     enterBalls(event) {
-        if (event.keyCode === 13)//enter key
-        {
+        if (event.keyCode === ENTER_CODE) {
             event.preventDefault();
-            spillBtn.click();
+            startBtn.click();
         }
     }
     //https://keycode.info/
     keyEventHandler(keyCode) {
-        if (keyCode === 82)//R to restart
-        {
+        if (keyCode === R_CODE) {
+            if (!pause)
+                this.playResume();
             this.setupGame();
         }
-        else if (keyCode === 107)//+ to add 1 ball and restart
-        {
-            this.setBallsNum(++balls_count);
+        else if (keyCode === PLUS_CODE) {
+            this.setBallsNumAndSetup(++balls_count);
         }
-        else if (keyCode === 109)//- to subtract 1 ball and restart
-        {
-            this.setBallsNum(--balls_count);
+        else if (keyCode === MINUS_CODE) {
+            this.setBallsNumAndSetup(--balls_count);
         }
-        else if (keyCode === 13)//Enter to pause/resume game
-        {
-            if (pause)
-                noLoop();
-            else
-                loop();
-            pause = !pause;
+        else if (keyCode === ENTER_CODE) {
+            this.playResume();
         }
+    }
+
+    playResume() {
+        if (pause)
+            noLoop();
+        else
+            loop();
+        pause = !pause;
     }
 }
