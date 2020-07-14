@@ -64,7 +64,9 @@
 
 <script>
     var game;
+    let bg;
     function setup() {
+        bg = loadImage('../assets/sea.jpg');
         createCanvas(400, 800).parent("canvas");
         game = new MatesGame();
     }

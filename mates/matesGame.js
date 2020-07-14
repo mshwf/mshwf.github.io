@@ -78,7 +78,7 @@ class MatesGame {
         this._balls = new Balls(mBalls);
     }
     play() {
-        background(51);
+        background(bg);
         this._balls.show();
         this._balls.update();
         goal = Math.round(50 * balls.length / targetDi);
