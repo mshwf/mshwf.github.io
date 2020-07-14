@@ -4,27 +4,33 @@ var balls_count = 5;
 var highestScore = 0;
 var side;
 var survived;
-var flashDiv;
 var goal;
+var matesCount;
+var currentScore = 0;
+var bgImg;
+var isBgImg = true;
+
+//#region tags
 var scoreValEl;
 var scoreDiv;
 var nextGoal;
+var highestScoreEl;
+var flashDiv;
 var numInput;
 var spillBtn;
 var ballsCounter;
-var highestScoreEl;
-var matesCount;
-var currentScore = 0;
+var bgDiv;
+var check_bg;
+//#endregion
 class MatesGame {
 
     constructor() {
         this.setupGame();
-        spillBtn.addEventListener('click', e => this.spillBalls(e));
-        numInput.addEventListener("keyup", e => this.enterBalls(e));
-        document.addEventListener("keydown", e => this.keyEventHandler(e));
     }
     setupGame() {
+        bgImg = loadImage('../assets/sea.jpg');
         this.getHTMLelements();
+        this.addListeners();
         scoreValEl.innerHTML = 0;
         matesCount = 0;
         currentScore = 0;
@@ -46,6 +52,15 @@ class MatesGame {
         numInput = document.getElementById('number');
         spillBtn = document.getElementById('spillBtn');
         ballsCounter = document.getElementById('balls-counter');
+        bgDiv = document.getElementById('bgDiv');
+        check_bg = document.getElementById('check_bg');
+
+    }
+    addListeners() {
+        bgDiv.addEventListener('click', () => isBgImg = check_bg.checked);
+        spillBtn.addEventListener('click', e => this.spillBalls(e));
+        numInput.addEventListener("keyup", e => this.enterBalls(e));
+        document.addEventListener("keydown", e => this.keyEventHandler(e));
     }
     resetStyles() {
         scoreValEl.style.textDecoration = 'none';
@@ -78,7 +93,7 @@ class MatesGame {
         this._balls = new Balls(mBalls);
     }
     play() {
-        background(bg);
+        background(isBgImg ? bgImg : 51);
         this._balls.show();
         this._balls.update();
         goal = Math.round(50 * balls.length / targetDi);
@@ -230,6 +245,10 @@ class MatesGame {
 
     spillBalls() {
         this.setBallsNum(numInput.value);
+    }
+    changeBG() {
+
+        console.log(random(10))
     }
 
     setBallsNum(num) {

@@ -57,6 +57,11 @@
             <li>Challenge yourself by increasing the number of balls.</li>
             <li>Press 'r' to restart, and '+'/ '-' to increase/ decrease number of balls.</li>
         </ul>
+        <div id="bgDiv">
+            <input type="checkbox" id="check_bg">
+            <label for="check_bg">Use background image</label><br>
+        </div>
+
     </div>
     <span style="position:absolute;bottom:20;right:20;">By: <a target="_blank" href="https://github.com/mshwf">Mohamed
             Elshawaf</a></span>
@@ -64,9 +69,7 @@
 
 <script>
     var game;
-    let bg;
     function setup() {
-        bg = loadImage('../assets/sea.jpg');
         createCanvas(400, 800).parent("canvas");
         game = new MatesGame();
     }
