@@ -21,6 +21,7 @@ var spillBtn;
 var ballsCounter;
 var bgDiv;
 var check_bg;
+var imgSource;
 //#endregion
 var i = 0;
 
@@ -59,14 +60,16 @@ class MatesGame {
         ballsCounter = document.getElementById('balls-counter');
         bgDiv = document.getElementById('bgDiv');
         check_bg = document.getElementById('check_bg');
+        imgSource = document.getElementById('imgSource');
     }
     addListeners() {
         bgDiv.addEventListener('click', (e) => {
             isBgImg = check_bg.checked;
+            imgSource.style.display = isBgImg ? 'block' : 'none';
         });
         spillBtn.addEventListener('click', e => this.spillBalls(e));
         numInput.addEventListener("keyup", e => this.enterBalls(e));
-        document.addEventListener("keydown", e => this.keyEventHandler(e));
+        document.addEventListener("keydown", e => this.keyEventHandler(e.keyCode));
     }
     resetStyles() {
         scoreValEl.style.textDecoration = 'none';
@@ -213,6 +216,10 @@ class MatesGame {
             highestScore = currentScore;
             highestScoreEl.innerHTML = highestScore;
         }
+        if (matesCount == balls_count) {
+
+            this.keyEventHandler(107);
+        }
 
     }
     failedGoal() {
@@ -277,16 +284,16 @@ class MatesGame {
             spillBtn.click();
         }
     }
-    keyEventHandler(event) {
-        if (event.keyCode === 82)//R to restart
+    keyEventHandler(keyCode) {
+        if (keyCode === 82)//R to restart
         {
             this.setupGame();
         }
-        else if (event.keyCode === 107)//+ to add 1 ball and restart
+        else if (keyCode === 107)//+ to add 1 ball and restart
         {
             this.setBallsNum(++balls_count);
         }
-        else if (event.keyCode === 109)//- to subtract 1 ball and restart
+        else if (keyCode === 109)//- to subtract 1 ball and restart
         {
             this.setBallsNum(--balls_count);
         }
