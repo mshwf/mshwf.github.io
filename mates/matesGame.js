@@ -292,6 +292,7 @@ class MatesGame {
             spillBtn.click();
         }
     }
+    //https://keycode.info/
     keyEventHandler(keyCode) {
         if (keyCode === 82)//R to restart
         {
@@ -305,7 +306,7 @@ class MatesGame {
         {
             this.setBallsNum(--balls_count);
         }
-        else if (keyCode === 13)//Enter to pause game
+        else if (keyCode === 13)//Enter to pause/resume game
         {
             if (pause)
                 noLoop();
