@@ -26,11 +26,11 @@ class MatesGame {
 
     constructor() {
         this.setupGame();
+        this.addListeners();
     }
     setupGame() {
         bgImg = loadImage('../assets/sea.jpg');
         this.getHTMLelements();
-        this.addListeners();
         scoreValEl.innerHTML = 0;
         matesCount = 0;
         currentScore = 0;
