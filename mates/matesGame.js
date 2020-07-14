@@ -22,15 +22,20 @@ var ballsCounter;
 var bgDiv;
 var check_bg;
 //#endregion
+var i = 0;
+
+function bgDivClicked() {
+    console.log('op');
+}
 class MatesGame {
 
     constructor() {
-        this.setupGame();
+        this.getHTMLelements();
         this.addListeners();
+        this.setupGame();
+        bgImg = loadImage('../assets/sea.jpg');
     }
     setupGame() {
-        bgImg = loadImage('../assets/sea.jpg');
-        this.getHTMLelements();
         scoreValEl.innerHTML = 0;
         matesCount = 0;
         currentScore = 0;
@@ -54,10 +59,11 @@ class MatesGame {
         ballsCounter = document.getElementById('balls-counter');
         bgDiv = document.getElementById('bgDiv');
         check_bg = document.getElementById('check_bg');
-
     }
     addListeners() {
-        bgDiv.addEventListener('click', () => isBgImg = check_bg.checked);
+        bgDiv.addEventListener('click', (e) => {
+            isBgImg = check_bg.checked;
+        });
         spillBtn.addEventListener('click', e => this.spillBalls(e));
         numInput.addEventListener("keyup", e => this.enterBalls(e));
         document.addEventListener("keydown", e => this.keyEventHandler(e));
