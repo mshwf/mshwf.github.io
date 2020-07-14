@@ -10,6 +10,7 @@ var matesCount;
 var currentScore = 0;
 var bgImg;
 var isBgImg = true;
+var pause = true;
 
 //#region tags
 var scoreValEl;
@@ -303,6 +304,14 @@ class MatesGame {
         else if (keyCode === 109)//- to subtract 1 ball and restart
         {
             this.setBallsNum(--balls_count);
+        }
+        else if (keyCode === 13)//Enter to pause game
+        {
+            if (pause)
+                noLoop();
+            else
+                loop();
+            pause = !pause;
         }
     }
 }
