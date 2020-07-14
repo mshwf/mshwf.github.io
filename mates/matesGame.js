@@ -2,6 +2,7 @@ const constSide = 12;
 const maxBalls = 50;
 var balls_count = 5;
 var highestScore = 0;
+var highestLevel = 0;
 var side;
 var survived;
 var goal;
@@ -15,6 +16,7 @@ var scoreValEl;
 var scoreDiv;
 var nextGoal;
 var highestScoreEl;
+var highestLevelEl;
 var flashDiv;
 var numInput;
 var spillBtn;
@@ -54,6 +56,7 @@ class MatesGame {
         scoreDiv = document.getElementById('scoreDiv');
         nextGoal = document.getElementById('nextGoal');
         highestScoreEl = document.getElementById('highestScore');
+        highestLevelEl = document.getElementById('highestLevel');
         flashDiv = document.getElementById('flashDiv');
         numInput = document.getElementById('number');
         spillBtn = document.getElementById('spillBtn');
@@ -216,8 +219,12 @@ class MatesGame {
             highestScore = currentScore;
             highestScoreEl.innerHTML = highestScore;
         }
-        if (matesCount == balls_count) {
 
+        if (matesCount == balls_count) {
+            if (matesCount > highestLevel) {
+                highestLevel = matesCount;
+                highestLevelEl.innerHTML = matesCount;
+            }
             this.keyEventHandler(107);
         }
 

@@ -27,32 +27,35 @@
             float: left;
             clear: none;
         }
+
+        #balls-counter {
+            margin: 5 0;
+        }
     </style>
 </head>
 
 <div id="left">
     <div id="balls-counter" style="display: none;">
         <input id="number" type="number" min="0" max="200" placeholder="#balls" style="width: 75px;">
-        <input id="spillBtn" type="button" value="Spill">
+        <input id="spillBtn" type="button" value="Start">
     </div>
 
-    <div>
-        <span style="color: red;">Use keyboard navigation keys</span>
-    </div>
     <div id='canvas'></div>
     <div id="flashDiv" style="width: 400px;height: 50px; background-color: black;"></div>
-    <label style="font-size: small;" id="imgSource">Image source: pngtree.com</label>
+    <label style="font-size: small;" id="imgSource">Image source: pinterest@pngtree</label>
 
 </div>
 <div id="right">
     <div id="scoreDiv">Score: <span id="scoreValEl">0</span>
         <spa>(Next bonus: <span id='nextGoal'>0</span>)</spa>
     </div>
+    <div>Highest level: <span id="highestLevel">0</span></div>
     <div>Highest score: <span id="highestScore">0</span></div>
     <hr />
     <div>
         <span>Help:</span>
         <ul>
+            <li>Use keyboard navigation keys.</li>
             <li>Hit ONLY the ball with the same color.</li>
             <li>Bonus is evaluated using the target ball dimeter and the total number of balls.</li>
             <li>Challenge yourself by increasing the number of balls.</li>
