@@ -4,6 +4,7 @@ const MAX_BALLS = 50;
 const PLUS_CODE = 107;
 const MINUS_CODE = 109;
 const ENTER_CODE = 13;
+const SPACE_CODE = 32;
 const R_CODE = 82;
 var balls_count = 5;
 var highestScore = 0;
@@ -16,6 +17,7 @@ var survived;
 var goal;
 var matesCount;
 var bgImg;
+var isDm = false;
 
 //#region HTML tags
 var scoreValEl;
@@ -30,6 +32,8 @@ var ballsCounter;
 var bgDiv;
 var check_bg;
 var imgSource;
+var dmDiv;
+var check_dm;
 //#endregion
 
 class MatesGame {
@@ -41,6 +45,7 @@ class MatesGame {
         bgImg = loadImage('../assets/sea.jpg');
     }
     setupGame() {
+        clear();
         scoreValEl.innerHTML = 0;
         matesCount = 0;
         currentScore = 0;
@@ -66,23 +71,39 @@ class MatesGame {
         bgDiv = document.getElementById('bgDiv');
         check_bg = document.getElementById('check_bg');
         imgSource = document.getElementById('imgSource');
+
+        dmDiv = document.getElementById('dmDiv');
+        check_dm = document.getElementById('check_dm');
+
     }
     addListeners() {
         bgDiv.addEventListener('click', (e) => {
             isBgImg = check_bg.checked;
             imgSource.style.display = isBgImg ? 'block' : 'none';
         });
+        dmDiv.addEventListener('click', (e) => {
+            isDm = check_dm.checked;
+
+            if (isDm)
+                document.body.classList.add("dark-mode");
+            else
+                document.body.classList.remove("dark-mode");
+            scoreValEl.style.color = survived ? (isDm ? 'white' : 'black') : 'red';
+            scoreDiv.style.color = survived ? (isDm ? 'white' : 'black') : 'red';
+
+        });
+
         startBtn.addEventListener('click', e => this.startNew(e));
         numInput.addEventListener("keyup", e => this.enterBalls(e));
         document.addEventListener("keydown", e => this.keyEventHandler(e.keyCode));
     }
     resetStyles() {
         scoreValEl.style.textDecoration = 'none';
-        scoreValEl.style.color = 'black';
+        scoreValEl.style.color = isDm ? 'white' : 'black';
         scoreValEl.style.fontWeight = 'normal';
 
         scoreDiv.style.textDecoration = 'none';
-        scoreDiv.style.color = 'black';
+        scoreDiv.style.color = survived ? (isDm ? 'white' : 'black') : 'red';
         scoreDiv.style.fontWeight = 'normal';
     }
     setFlash(color) {
@@ -214,9 +235,7 @@ class MatesGame {
         var randomColor = `rgb(${random(255)},${random(255)},${random(255)})`;
         this.setFlash(randomColor);
         currentScore += goal;
-        scoreValEl.style.fontWeight = 'bold';
         scoreValEl.innerHTML = currentScore;
-        scoreDiv.style.fontWeight = 'bold';
         if (currentScore > highestScore) {
             highestScore = currentScore;
             highestScoreEl.innerHTML = highestScore;
@@ -282,11 +301,9 @@ class MatesGame {
         this.setupGame();
     }
 
-    enterBalls(event) {
-        if (event.keyCode === ENTER_CODE) {
-            event.preventDefault();
-            startBtn.click();
-        }
+    enterBalls(e) {
+        if (e.keyCode === ENTER_CODE)
+            this.startNew();
     }
     //https://keycode.info/
     keyEventHandler(keyCode) {
@@ -301,7 +318,7 @@ class MatesGame {
         else if (keyCode === MINUS_CODE) {
             this.setBallsNumAndSetup(--balls_count);
         }
-        else if (keyCode === ENTER_CODE) {
+        else if (keyCode === SPACE_CODE) {
             this.playResume();
         }
     }

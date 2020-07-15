@@ -32,13 +32,23 @@
         #ballsCounter {
             margin: 5 0;
         }
+
+        .dark-mode {
+            background-color: #2D2D2D;
+            color: white;
+        }
+
+        .btn:focus {
+            outline: none;
+            box-shadow: none;
+        }
     </style>
 </head>
 
 <div id="left">
     <div id="ballsCounter" style="display: none;">
-        <input id="number" type="number" min="0" max="200" placeholder="#balls" style="width: 75px;">
-        <input id="startBtn" type="button" value="Start">
+        <input id="number" type="number" min="0" max="200" placeholder="#balls" style="width: 75px;" class="btn">
+        <input id="startBtn" type="button" value="Start" class="btn">
     </div>
 
     <div id='canvas'></div>
@@ -64,14 +74,19 @@
                 <ul>
                     <li>R to restart.</li>
                     <li>+/- to increase/decrease the number of balls.</li>
-                    <li>Enter to pause/resume.</li>
+                    <li>Space to pause/resume.</li>
                 </ul>
             </li>
         </ul>
         <div id="bgDiv">
-            <input type="checkbox" id="check_bg" checked>
+            <input type="checkbox" id="check_bg" checked class="btn">
             <label for="check_bg">Use background image</label><br>
         </div>
+        <div id="dmDiv">
+            <input type="checkbox" id="check_dm" class="btn">
+            <label for="check_dm">Dark mode</label><br>
+        </div>
+
 
     </div>
     <span style="position:absolute;bottom:20;right:20;">By: <a target="_blank" href="https://github.com/mshwf">Mohamed
