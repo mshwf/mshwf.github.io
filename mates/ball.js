@@ -47,7 +47,7 @@ class Balls {
             var ball = balls[index];
             if (index == balls.length - 1) {
                 strokeWeight(strokeW);
-                stroke(255, 255, 255);
+                stroke(255);
             }
             else
                 strokeWeight(0);

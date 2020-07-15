@@ -55,10 +55,8 @@ class MatesGame {
         currentScore = 0;
         side = CONST_SIDE;
         survived = true;
-        this.resetStyles();
         numInput.value = balls_count;
-        stroke(0);
-        strokeWeight(0);
+        this.resetStyles();
         this.setupBalls();
         this.resetPos();
     }
@@ -75,10 +73,8 @@ class MatesGame {
         bgDiv = document.getElementById('bgDiv');
         check_bg = document.getElementById('check_bg');
         imgSource = document.getElementById('imgSource');
-
         dmDiv = document.getElementById('dmDiv');
         check_dm = document.getElementById('check_dm');
-
     }
     addListeners() {
         bgDiv.addEventListener('click', (e) => {
@@ -86,6 +82,7 @@ class MatesGame {
             imgSource.style.display = isBgImg ? 'block' : 'none';
             check_bg.blur();
         });
+
         dmDiv.addEventListener('click', (e) => {
             isDm = check_dm.checked;
 
@@ -96,7 +93,6 @@ class MatesGame {
             scoreValEl.style.color = survived ? (isDm ? 'white' : 'black') : 'red';
             scoreDiv.style.color = survived ? (isDm ? 'white' : 'black') : 'red';
             check_dm.blur();
-
         });
 
         startBtn.addEventListener('click', e => this.startNew(e));
@@ -217,7 +213,6 @@ class MatesGame {
 
                     else if (!isTargetBool)
                         this.failedGoal();
-
                 }
             }
 
@@ -238,8 +233,8 @@ class MatesGame {
         side++;
         matesCount++;
 
-        var randomColor = `rgb(${random(255)},${random(255)},${random(255)})`;
-        this.setFlash(randomColor);
+        var targetColor = `rgb(${targetFill.r},${targetFill.g},${targetFill.b})`;
+        this.setFlash(targetColor);
         currentScore += goal;
         scoreValEl.innerHTML = currentScore;
         if (currentScore > highestScore) {
@@ -254,8 +249,8 @@ class MatesGame {
             }
             this.keyEventHandler(PLUS_CODE);
         }
-
     }
+
     failedGoal() {
         survived = false;
         scoreValEl.style.textDecoration = 'line-through';
@@ -268,6 +263,7 @@ class MatesGame {
             ball.vel.x = 0;
         }
     }
+
     edges() {
         if (this.pos.y >= height - side) {
             this.pos.y = height - side;
@@ -314,6 +310,7 @@ class MatesGame {
         if (e.keyCode === ENTER_CODE)
             this.startNew();
     }
+
     //https://keycode.info/
     keyEventHandler(keyCode) {
         if (keyCode === R_CODE) {
