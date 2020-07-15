@@ -80,6 +80,7 @@ class MatesGame {
         bgDiv.addEventListener('click', (e) => {
             isBgImg = check_bg.checked;
             imgSource.style.display = isBgImg ? 'block' : 'none';
+            check_bg.blur();
         });
         dmDiv.addEventListener('click', (e) => {
             isDm = check_dm.checked;
@@ -90,6 +91,7 @@ class MatesGame {
                 document.body.classList.remove("dark-mode");
             scoreValEl.style.color = survived ? (isDm ? 'white' : 'black') : 'red';
             scoreDiv.style.color = survived ? (isDm ? 'white' : 'black') : 'red';
+            check_dm.blur();
 
         });
 
@@ -285,7 +287,10 @@ class MatesGame {
     }
 
     startNew() {
+        if (!pause)
+            this.playResume();
         this.setBallsNumAndSetup(numInput.value);
+        startBtn.blur();
     }
 
     setBallsNumAndSetup(num) {

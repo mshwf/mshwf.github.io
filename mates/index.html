@@ -38,7 +38,7 @@
             color: white;
         }
 
-        .btn:focus {
+        .noFocusInput:focus {
             outline: none;
             box-shadow: none;
         }
@@ -47,8 +47,9 @@
 
 <div id="left">
     <div id="ballsCounter" style="display: none;">
-        <input id="number" type="number" min="0" max="200" placeholder="#balls" style="width: 75px;" class="btn">
-        <input id="startBtn" type="button" value="Start" class="btn">
+        <input id="number" type="number" min="0" max="200" placeholder="#balls" style="width: 75px;"
+            class="noFocusInput">
+        <input id="startBtn" type="button" value="Start" class="noFocusInput">
     </div>
 
     <div id='canvas'></div>
@@ -79,11 +80,11 @@
             </li>
         </ul>
         <div id="bgDiv">
-            <input type="checkbox" id="check_bg" checked class="btn">
+            <input type="checkbox" id="check_bg" checked class="noFocusInput">
             <label for="check_bg">Use background image</label><br>
         </div>
         <div id="dmDiv">
-            <input type="checkbox" id="check_dm" class="btn">
+            <input type="checkbox" id="check_dm" class="noFocusInput">
             <label for="check_dm">Dark mode</label><br>
         </div>
 
