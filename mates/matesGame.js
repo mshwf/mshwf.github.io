@@ -1,5 +1,7 @@
 const CONST_SIDE = 12;
 const MAX_BALLS = 50;
+const DEFAULT_WIDTH = 800;
+const DEFAULT_Height = 800;
 
 const PLUS_CODE = 107;
 const MINUS_CODE = 109;
@@ -39,10 +41,12 @@ var check_dm;
 class MatesGame {
 
     constructor() {
+        createCanvas(DEFAULT_WIDTH, DEFAULT_Height).parent("canvas");
         this.getHTMLelements();
         this.addListeners();
         this.setupGame();
         bgImg = loadImage('../assets/sea.jpg');
+        flashDiv.style.width = DEFAULT_WIDTH;
     }
     setupGame() {
         clear();
