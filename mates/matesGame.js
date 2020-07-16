@@ -53,7 +53,7 @@ class MatesGame {
         scoreValEl.innerHTML = 0;
         matesCount = 0;
         currentScore = 0;
-        side = CONST_SIDE;
+        side = CONST_SIDE + highestLevel;
         survived = true;
         numInput.value = balls_count;
         this.resetStyles();
@@ -230,7 +230,6 @@ class MatesGame {
     }
     achievedGoal() {
         balls.pop();
-        side++;
         matesCount++;
 
         var targetColor = `rgb(${targetFill.r},${targetFill.g},${targetFill.b})`;
