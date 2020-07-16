@@ -24,7 +24,6 @@ var isDm = false;
 //#region HTML tags
 var scoreValEl;
 var scoreDiv;
-var nextGoal;
 var highestScoreEl;
 var highestLevelEl;
 var flashDiv;
@@ -63,7 +62,6 @@ class MatesGame {
     getHTMLelements() {
         scoreValEl = document.getElementById('scoreValEl');
         scoreDiv = document.getElementById('scoreDiv');
-        nextGoal = document.getElementById('nextGoal');
         highestScoreEl = document.getElementById('highestScore');
         highestLevelEl = document.getElementById('highestLevel');
         flashDiv = document.getElementById('flashDiv');
@@ -134,7 +132,6 @@ class MatesGame {
         this._balls.show();
         this._balls.update();
         goal = Math.round(50 * balls.length / targetDi);
-        nextGoal.innerHTML = goal;
 
         square(this.pos.x, this.pos.y, side);
 

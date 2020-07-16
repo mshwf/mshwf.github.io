@@ -50,6 +50,12 @@
         <input id="number" type="number" min="0" max="200" placeholder="#balls" style="width: 75px;"
             class="noFocusInput">
         <input id="startBtn" type="button" value="Start" class="noFocusInput">
+        <span id="scoreDiv">Score: <span id="scoreValEl">0</span> |
+            <!-- <spa>(Next bonus: <span id='nextGoal'>0</span>)</spa> -->
+        </span>
+        <span>Highest score: <span id="highestScore">0</span> | </span>
+        <span>Highest level: <span id="highestLevel">0</span></span>
+
     </div>
 
     <div id='canvas'></div>
@@ -58,12 +64,12 @@
 
 </div>
 <div id="right">
-    <div id="scoreDiv">Score: <span id="scoreValEl">0</span>
+    <!-- <div id="scoreDiv">Score: <span id="scoreValEl">0</span>
         <spa>(Next bonus: <span id='nextGoal'>0</span>)</spa>
     </div>
     <div>Highest level: <span id="highestLevel">0</span></div>
     <div>Highest score: <span id="highestScore">0</span></div>
-    <hr />
+    <hr /> -->
     <div>
         <span>Help:</span>
         <ul>
@@ -90,8 +96,12 @@
 
 
     </div>
-    <span style="position:absolute;bottom:20;right:20;">By: <a target="_blank" href="https://github.com/mshwf">Mohamed
-            Elshawaf</a></span>
+    <div style="position:absolute;bottom:20;right:20;">
+        <div>By: <a target="_blank" href="https://github.com/mshwf">Mohamed
+                Elshawaf</a></div>
+        <div>Enjoy it? <a href="mailto:m_shawaf@outlook.com">please let me know</a></div>
+    </div>
+
 </div>
 
 <script>
