@@ -15,7 +15,6 @@ class Ball {
         this.color = b.color;
     }
 }
-var targetFill;
 var targetDi;
 var balls;
 var strokeW = 2;
@@ -48,14 +47,15 @@ class Balls {
             if (index == balls.length - 1) {
                 strokeWeight(strokeW);
                 stroke(255);
+                ball.isTarget = true;
+                targetDi = ball.di;
             }
-            else
+            else {
                 strokeWeight(0);
+            }
 
             fill(ball.color.r, ball.color.g, ball.color.b);
             ellipse(ball.pos.x, ball.pos.y, ball.di);
-            targetFill = ball.color;
-            targetDi = ball.di;
         }
 
     }

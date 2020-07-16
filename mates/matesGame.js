@@ -193,10 +193,6 @@ class MatesGame {
         this.setFlash("black");
         for (var i = 0; i < balls.length; i++) {
             var ball = balls[i];
-            var isTargetBool =
-                ball.color.r === targetFill.r &&
-                ball.color.g === targetFill.g &&
-                ball.color.b === targetFill.b;
             var rad = ball.di / 2;
 
             var left = Math.min(this.pos.x, ball.pos.x - rad);
@@ -208,10 +204,10 @@ class MatesGame {
             if (right - left > down - top) {
                 //compare with horizontal
                 if (Math.abs(ball.pos.x - (this.pos.x + side / 2)) <= touched) {
-                    if (isTargetBool && survived)
-                        this.achievedGoal();
+                    if (ball.isTarget && survived)
+                        this.achievedGoal(ball.color);
 
-                    else if (!isTargetBool)
+                    else if (!ball.isTarget)
                         this.failedGoal();
                 }
             }
@@ -219,20 +215,20 @@ class MatesGame {
             else {
                 //compare with vertical
                 if (Math.abs(ball.pos.y - (this.pos.y + side / 2)) <= touched) {
-                    if (isTargetBool && survived)
-                        this.achievedGoal();
+                    if (ball.isTarget && survived)
+                        this.achievedGoal(ball.color);
 
-                    else if (!isTargetBool)
+                    else if (!ball.isTarget)
                         this.failedGoal();
                 }
             }
         }
     }
-    achievedGoal() {
+    achievedGoal(color) {
         balls.pop();
         matesCount++;
 
-        var targetColor = `rgb(${targetFill.r},${targetFill.g},${targetFill.b})`;
+        var targetColor = `rgb(${color.r},${color.g},${color.b})`;
         this.setFlash(targetColor);
         currentScore += goal;
         scoreValEl.innerHTML = currentScore;
