@@ -123,7 +123,7 @@ class MatesGame {
             mBalls.push(new Ball({
                 x: random(0, width),
                 y: 0,
-                di: random(5, 50),
+                di: random(10, 50),
                 color: new Color(Math.round(random(0, 255)), Math.round(random(0, 255)), Math.round(random(0, 255)))
             }));
         }
