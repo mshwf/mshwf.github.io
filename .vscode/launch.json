@@ -5,7 +5,7 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "type": "chrome",
+            "type": "edge",
             "request": "launch",
             "name": "Open index.html",
             "file": "D:\\DevLib\\GitHub\\mshwf.github.io\\Mates\\index.html",
