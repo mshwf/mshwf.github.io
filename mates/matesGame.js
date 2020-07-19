@@ -40,18 +40,18 @@ var check_dm;
 class MatesGame {
 
     constructor() {
-    var url = new URL(window.location.href);
+        var url = new URL(window.location.href);
 
-    var url_balls = url.searchParams.get("balls");
-    var url_dm = url.searchParams.get("dark_mode");
-    var url_bimg = url.searchParams.get("bg_img");
+        var url_balls = url.searchParams.get("balls");
+        var url_dm = url.searchParams.get("dark_mode");
+        var url_bimg = url.searchParams.get("bg_image");
 
-    if(url_balls !== null)
-        balls_count =Math.min(Math.max(parseInt(url_balls), 0), 50);
-    if(url_dm !== null)
-        isDm = url_dm == '1' || url_dm.toLowerCase() == 'true';
-    if(url_bimg !== null)
-        isBgImg = !(url_bimg == '0' || url_bimg.toLowerCase() == 'false');
+        if (url_balls !== null)
+            balls_count = Math.min(Math.max(parseInt(url_balls), 0), 50);
+        if (url_dm !== null)
+            isDm = url_dm == '1' || url_dm.toLowerCase() == 'true';
+        if (url_bimg !== null)
+            isBgImg = !(url_bimg == '0' || url_bimg.toLowerCase() == 'false');
 
         this.setDarkMode();
         createCanvas(DEFAULT_WIDTH, DEFAULT_Height).parent("canvas");
@@ -107,13 +107,13 @@ class MatesGame {
         numInput.addEventListener("keyup", e => this.enterBalls(e));
         document.addEventListener("keydown", e => this.keyEventHandler(e.keyCode));
     }
-    setDarkMode(){
+    setDarkMode() {
         if (isDm)
-        document.body.classList.add("dark-mode");
-    else
-        document.body.classList.remove("dark-mode");
+            document.body.classList.add("dark-mode");
+        else
+            document.body.classList.remove("dark-mode");
     }
-    changeBG(){
+    changeBG() {
         imgSource.style.display = isBgImg ? 'block' : 'none';
     }
     resetStyles() {
