@@ -40,6 +40,20 @@ var check_dm;
 class MatesGame {
 
     constructor() {
+    var url = new URL(window.location.href);
+
+    var url_balls = url.searchParams.get("balls");
+    var url_dm = url.searchParams.get("dark_mode");
+    var url_bimg = url.searchParams.get("bg_img");
+
+    if(url_balls !== null)
+        balls_count =Math.min(Math.max(parseInt(url_balls), 0), 50);
+    if(url_dm !== null)
+        isDm = url_dm == '1' || url_dm.toLowerCase() == 'true';
+    if(url_bimg !== null)
+        isBgImg = !(url_bimg == '0' || url_bimg.toLowerCase() == 'false');
+
+        this.setDarkMode();
         createCanvas(DEFAULT_WIDTH, DEFAULT_Height).parent("canvas");
         this.getHTMLelements();
         this.addListeners();
@@ -77,17 +91,13 @@ class MatesGame {
     addListeners() {
         bgDiv.addEventListener('click', (e) => {
             isBgImg = check_bg.checked;
-            imgSource.style.display = isBgImg ? 'block' : 'none';
+            this.changeBG();
             check_bg.blur();
         });
 
         dmDiv.addEventListener('click', (e) => {
             isDm = check_dm.checked;
-
-            if (isDm)
-                document.body.classList.add("dark-mode");
-            else
-                document.body.classList.remove("dark-mode");
+            this.setDarkMode();
             scoreValEl.style.color = survived ? (isDm ? 'white' : 'black') : 'red';
             scoreDiv.style.color = survived ? (isDm ? 'white' : 'black') : 'red';
             check_dm.blur();
@@ -96,6 +106,15 @@ class MatesGame {
         startBtn.addEventListener('click', e => this.startNew(e));
         numInput.addEventListener("keyup", e => this.enterBalls(e));
         document.addEventListener("keydown", e => this.keyEventHandler(e.keyCode));
+    }
+    setDarkMode(){
+        if (isDm)
+        document.body.classList.add("dark-mode");
+    else
+        document.body.classList.remove("dark-mode");
+    }
+    changeBG(){
+        imgSource.style.display = isBgImg ? 'block' : 'none';
     }
     resetStyles() {
         scoreValEl.style.textDecoration = 'none';
