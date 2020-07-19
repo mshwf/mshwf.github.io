@@ -33,7 +33,7 @@
             margin: 5 0;
         }
 
-        .dark-mode {
+        .dark-mode:not(.code) {
             background-color: #2D2D2D;
             color: white;
         }
@@ -41,6 +41,13 @@
         .noFocusInput:focus {
             outline: none;
             box-shadow: none;
+        }
+
+        .code {
+            background-color: rgb(226, 226, 226);
+            border: 1px solid black;
+            border-radius: 4px;
+            padding: 1px;
         }
     </style>
 </head>
@@ -68,6 +75,11 @@
             <li>Hit ONLY the ball with the same color.</li>
             <li>Score is evaluated using the target ball dimeter and the total number of balls.</li>
             <li>Challenge yourself by increasing the number of balls.</li>
+            <li>
+                <div>Create a preference link using these parameters: <span class="code">balls</span>, <span
+                        class="code">dark_mode</span> and <span class="code">bg_image</span>, example:</div>
+                <div> https://mshwf.github.io/mates/?balls=20&bg_image=false&dark_mode=true</div>
+            </li>
             <li>Shortcuts:
                 <ul>
                     <li>R to restart.</li>

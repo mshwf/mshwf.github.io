@@ -35,27 +35,17 @@ var check_bg;
 var imgSource;
 var dmDiv;
 var check_dm;
+var codeSpans;
 //#endregion
 
 class MatesGame {
 
     constructor() {
-        var url = new URL(window.location.href);
-
-        var url_balls = url.searchParams.get("balls");
-        var url_dm = url.searchParams.get("dark_mode");
-        var url_bimg = url.searchParams.get("bg_image");
-
-        if (url_balls !== null)
-            balls_count = Math.min(Math.max(parseInt(url_balls), 0), 50);
-        if (url_dm !== null)
-            isDm = url_dm == '1' || url_dm.toLowerCase() == 'true';
-        if (url_bimg !== null)
-            isBgImg = !(url_bimg == '0' || url_bimg.toLowerCase() == 'false');
+        this.getHTMLelements();
+        this.getUrlParams();
 
         this.setDarkMode();
         createCanvas(DEFAULT_WIDTH, DEFAULT_Height).parent("canvas");
-        this.getHTMLelements();
         this.addListeners();
         this.setupGame();
         bgImg = loadImage('../assets/sea.jpg');
@@ -73,6 +63,23 @@ class MatesGame {
         this.setupBalls();
         this.resetPos();
     }
+    getUrlParams() {
+        var url = new URL(window.location.href);
+
+        var url_balls = url.searchParams.get("balls");
+        var url_dm = url.searchParams.get("dark_mode");
+        var url_bimg = url.searchParams.get("bg_image");
+
+        if (url_balls !== null)
+            balls_count = Math.min(Math.max(parseInt(url_balls), 0), 50);
+        if (url_dm !== null)
+            isDm = url_dm == '1' || url_dm.toLowerCase() == 'true';
+        if (url_bimg !== null)
+            isBgImg = !(url_bimg == '0' || url_bimg.toLowerCase() == 'false');
+
+        check_dm.checked = isDm;
+        check_bg.checked = isBgImg;
+    }
     getHTMLelements() {
         scoreValEl = document.getElementById('scoreValEl');
         scoreDiv = document.getElementById('scoreDiv');
@@ -87,6 +94,7 @@ class MatesGame {
         imgSource = document.getElementById('imgSource');
         dmDiv = document.getElementById('dmDiv');
         check_dm = document.getElementById('check_dm');
+        codeSpans = document.getElementsByClassName('code');
     }
     addListeners() {
         bgDiv.addEventListener('click', (e) => {
@@ -108,10 +116,16 @@ class MatesGame {
         document.addEventListener("keydown", e => this.keyEventHandler(e.keyCode));
     }
     setDarkMode() {
-        if (isDm)
+        if (isDm) {
             document.body.classList.add("dark-mode");
+            for (let codeSpan of codeSpans) {
+                codeSpan.style.color = 'black';
+            }
+        }
         else
             document.body.classList.remove("dark-mode");
+
+
     }
     changeBG() {
         imgSource.style.display = isBgImg ? 'block' : 'none';
