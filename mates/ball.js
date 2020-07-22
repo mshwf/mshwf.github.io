@@ -46,13 +46,13 @@ class Balls {
             var ball = balls[index];
             if (index == balls.length - 1) {
                 strokeWeight(strokeW);
-                stroke(255);
+                stroke(0);
                 ball.isTarget = true;
                 targetDi = ball.di;
             }
             else {
                 strokeWeight(strokeW);
-                stroke(0);
+                stroke(255);
             }
 
             fill(ball.color.r, ball.color.g, ball.color.b);
