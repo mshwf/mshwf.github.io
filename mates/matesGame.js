@@ -50,9 +50,9 @@ class MatesGame {
         this.setupGame();
         bgImg = loadImage('../assets/sea.jpg');
         flashDiv.style.width = DEFAULT_WIDTH;
-        side = CONST_SIDE;
     }
     setupGame() {
+        side = CONST_SIDE;
         clear();
         scoreValEl.innerHTML = 0;
         matesCount = 0;
