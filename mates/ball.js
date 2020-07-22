@@ -46,7 +46,7 @@ class Balls {
             var ball = balls[index];
             if (index == balls.length - 1) {
                 strokeWeight(strokeW);
-                stroke(0);
+                stroke(255);
                 ball.isTarget = true;
                 targetDi = ball.di;
             }
