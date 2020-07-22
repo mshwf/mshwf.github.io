@@ -50,13 +50,13 @@ class MatesGame {
         this.setupGame();
         bgImg = loadImage('../assets/sea.jpg');
         flashDiv.style.width = DEFAULT_WIDTH;
+        side = CONST_SIDE;
     }
     setupGame() {
         clear();
         scoreValEl.innerHTML = 0;
         matesCount = 0;
         currentScore = 0;
-        side = CONST_SIDE + highestLevel;
         survived = true;
         numInput.value = balls_count;
         this.resetStyles();

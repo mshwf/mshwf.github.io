@@ -51,7 +51,8 @@ class Balls {
                 targetDi = ball.di;
             }
             else {
-                strokeWeight(0);
+                strokeWeight(strokeW);
+                stroke(0);
             }
 
             fill(ball.color.r, ball.color.g, ball.color.b);
