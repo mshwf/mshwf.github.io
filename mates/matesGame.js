@@ -8,6 +8,7 @@ const MINUS_CODE = 109;
 const ENTER_CODE = 13;
 const SPACE_CODE = 32;
 const R_CODE = 82;
+const GRAY = '#b1b1b1';
 var balls_count = 5;
 var highestScore = 0;
 var highestLevel = 0;
@@ -20,6 +21,8 @@ var goal;
 var matesCount;
 var bgImg;
 var isDm = false;
+var remBalls;
+
 
 //#region HTML tags
 var scoreValEl;
@@ -29,13 +32,14 @@ var highestLevelEl;
 var flashDiv;
 var numInput;
 var startBtn;
-var ballsCounter;
+var counters;
 var bgDiv;
 var check_bg;
 var imgSource;
 var dmDiv;
 var check_dm;
 var codeSpans;
+var sp_remBalls;
 //#endregion
 
 class MatesGame {
@@ -58,7 +62,8 @@ class MatesGame {
         matesCount = 0;
         currentScore = 0;
         survived = true;
-        numInput.value = balls_count;
+        remBalls = numInput.value = balls_count;
+        sp_remBalls.innerHTML = remBalls;
         this.resetStyles();
         this.setupBalls();
         this.resetPos();
@@ -88,13 +93,14 @@ class MatesGame {
         flashDiv = document.getElementById('flashDiv');
         numInput = document.getElementById('number');
         startBtn = document.getElementById('startBtn');
-        ballsCounter = document.getElementById('ballsCounter');
+        counters = document.getElementById('counters');
         bgDiv = document.getElementById('bgDiv');
         check_bg = document.getElementById('check_bg');
         imgSource = document.getElementById('imgSource');
         dmDiv = document.getElementById('dmDiv');
         check_dm = document.getElementById('check_dm');
         codeSpans = document.getElementsByClassName('code');
+        sp_remBalls = document.getElementById('rem-balls');
     }
     addListeners() {
         bgDiv.addEventListener('click', (e) => {
@@ -106,8 +112,6 @@ class MatesGame {
         dmDiv.addEventListener('click', (e) => {
             isDm = check_dm.checked;
             this.setDarkMode();
-            scoreValEl.style.color = survived ? (isDm ? 'white' : 'black') : 'red';
-            scoreDiv.style.color = survived ? (isDm ? 'white' : 'black') : 'red';
             check_dm.blur();
         });
 
@@ -125,7 +129,9 @@ class MatesGame {
         else
             document.body.classList.remove("dark-mode");
 
-
+        scoreValEl.style.color = survived ? (isDm ? 'white' : 'black') : 'red';
+        scoreDiv.style.color = survived ? (isDm ? 'white' : 'black') : 'red';
+        sp_remBalls.style.color = survived ? (isDm ? 'white' : 'black') : GRAY;
     }
     changeBG() {
         imgSource.style.display = isBgImg ? 'block' : 'none';
@@ -138,6 +144,7 @@ class MatesGame {
         scoreDiv.style.textDecoration = 'none';
         scoreDiv.style.color = survived ? (isDm ? 'white' : 'black') : 'red';
         scoreDiv.style.fontWeight = 'normal';
+        sp_remBalls.style.color = isDm ? 'white' : 'black';
     }
     setFlash(color) {
         flashDiv.style.backgroundColor = color;
@@ -148,7 +155,6 @@ class MatesGame {
         this.pos = createVector(20, height - side);
     }
     setupBalls() {
-        ballsCounter.style.display = "table";
         var mBalls = [];
         for (var i = 0; i < balls_count; i++) {
             mBalls.push(new Ball({
@@ -257,6 +263,7 @@ class MatesGame {
     achievedGoal(color) {
         balls.pop();
         matesCount++;
+        sp_remBalls.innerHTML = --remBalls;
 
         var targetColor = `rgb(${color.r},${color.g},${color.b})`;
         this.setFlash(targetColor);
@@ -278,6 +285,7 @@ class MatesGame {
 
     failedGoal() {
         survived = false;
+        sp_remBalls.style.color = GRAY;
         scoreValEl.style.textDecoration = 'line-through';
         scoreDiv.style.textDecoration = 'line-through';
         scoreValEl.style.color = 'red';

@@ -53,13 +53,16 @@
 </head>
 
 <div id="left">
-    <div id="ballsCounter" style="display: none;">
+    <div id="counters">
         <input id="number" type="number" min="0" max="200" placeholder="#balls" style="width: 75px;"
             class="noFocusInput">
         <input id="startBtn" type="button" value="Start" class="noFocusInput">
         <span id="scoreDiv" style="margin-left: 15px;">Score: <span id="scoreValEl">0</span></span><span> | </span>
         <span>Highest score: <span id="highestScore">0</span> | </span>
         <span>Highest level: <span id="highestLevel">0</span></span>
+
+        <span id="rem-balls" style="font-family:monospace;font-size: large;float:right;">
+        </span>
     </div>
 
     <div id='canvas'></div>
@@ -102,7 +105,6 @@
     <div style="position:absolute;bottom:20;right:20;">
         <div>By: <a target="_blank" href="https://github.com/mshwf">Mohamed
                 Elshawaf</a></div>
-        <div>Enjoy it? <a href="mailto:m_shawaf@outlook.com">please let me know</a></div>
     </div>
 
 </div>
