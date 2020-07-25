@@ -21,8 +21,6 @@ var goal;
 var matesCount;
 var bgImg;
 var isDm = false;
-var remBalls;
-
 
 //#region HTML tags
 var scoreValEl;
@@ -56,14 +54,13 @@ class MatesGame {
         flashDiv.style.width = DEFAULT_WIDTH;
     }
     setupGame() {
-        side = CONST_SIDE;
         clear();
+        side = CONST_SIDE;
         scoreValEl.innerHTML = 0;
         matesCount = 0;
         currentScore = 0;
         survived = true;
-        remBalls = numInput.value = balls_count;
-        sp_remBalls.innerHTML = remBalls;
+        sp_remBalls.innerHTML = numInput.value = balls_count;
         this.resetStyles();
         this.setupBalls();
         this.resetPos();
@@ -263,7 +260,7 @@ class MatesGame {
     achievedGoal(color) {
         balls.pop();
         matesCount++;
-        sp_remBalls.innerHTML = --remBalls;
+        sp_remBalls.innerHTML = balls_count - matesCount;
 
         var targetColor = `rgb(${color.r},${color.g},${color.b})`;
         this.setFlash(targetColor);
