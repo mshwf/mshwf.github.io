@@ -43,18 +43,22 @@ class Balls {
 
     show() {
         for (let index = 0; index < balls.length; index++) {
+            strokeWeight(strokeW);
+            stroke(255);
+
             var ball = balls[index];
             if (index == balls.length - 1) {
-                strokeWeight(strokeW);
-                stroke(255);
                 ball.isTarget = true;
                 targetDi = ball.di;
+                fill(255, 0, 0);
+            }
+            else if (index == balls.length - 2) {
+                fill(255, 255, 0);
             }
             else {
-                strokeWeight(0);
+                fill(0, 0, 255);
             }
 
-            fill(ball.color.r, ball.color.g, ball.color.b);
             ellipse(ball.pos.x, ball.pos.y, ball.di);
         }
 
