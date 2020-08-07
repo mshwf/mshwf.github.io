@@ -21,6 +21,7 @@ var goal;
 var matesCount;
 var bgImg;
 var isDm = false;
+var isXp = false;
 
 //#region HTML tags
 var scoreValEl;
@@ -35,7 +36,9 @@ var bgDiv;
 var check_bg;
 var imgSource;
 var dmDiv;
+var xpDiv;
 var check_dm;
+var check_xp;
 var codeSpans;
 var sp_remBalls;
 //#endregion
@@ -71,6 +74,7 @@ class MatesGame {
         var url_balls = url.searchParams.get("balls");
         var url_dm = url.searchParams.get("dark_mode");
         var url_bimg = url.searchParams.get("bg_image");
+        var url_xp = url.searchParams.get("xp_mode");
 
         if (url_balls !== null)
             balls_count = Math.min(Math.max(parseInt(url_balls), 0), 50);
@@ -78,9 +82,13 @@ class MatesGame {
             isDm = url_dm == '1' || url_dm.toLowerCase() == 'true';
         if (url_bimg !== null)
             isBgImg = !(url_bimg == '0' || url_bimg.toLowerCase() == 'false');
+        if (url_xp !== null)
+            isXp = !(url_xp == '0' || url_xp.toLowerCase() == 'false');
+
 
         check_dm.checked = isDm;
         check_bg.checked = isBgImg;
+        check_xp.checked = isXp;
     }
     getHTMLelements() {
         scoreValEl = document.getElementById('scoreValEl');
@@ -95,7 +103,9 @@ class MatesGame {
         check_bg = document.getElementById('check_bg');
         imgSource = document.getElementById('imgSource');
         dmDiv = document.getElementById('dmDiv');
+        xpDiv = document.getElementById('xpDiv');
         check_dm = document.getElementById('check_dm');
+        check_xp = document.getElementById('check_xp');
         codeSpans = document.getElementsByClassName('code');
         sp_remBalls = document.getElementById('rem-balls');
     }
@@ -110,6 +120,10 @@ class MatesGame {
             isDm = check_dm.checked;
             this.setDarkMode();
             check_dm.blur();
+        });
+        xpDiv.addEventListener('click', (e) => {
+            isXp = check_xp.checked;
+            check_xp.blur();
         });
 
         startBtn.addEventListener('click', e => this.startNew(e));
@@ -164,7 +178,8 @@ class MatesGame {
         this._balls = new Balls(mBalls);
     }
     play() {
-        background(isBgImg ? bgImg : 51);
+        if (!isXp)
+            background(isBgImg ? bgImg : 51);
         this._balls.show();
         this._balls.update();
         goal = Math.round(50 * balls.length / targetDi);
