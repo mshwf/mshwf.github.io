@@ -22,7 +22,7 @@ var matesCount;
 var bgImg;
 var isDm = false;
 var isXp = false;
-
+var hadBg = false;
 //#region HTML tags
 var scoreValEl;
 var scoreDiv;
@@ -58,6 +58,7 @@ class MatesGame {
     }
     setupGame() {
         clear();
+        hadBg = false;
         side = CONST_SIDE;
         scoreValEl.innerHTML = 0;
         matesCount = 0;
@@ -178,8 +179,13 @@ class MatesGame {
         this._balls = new Balls(mBalls);
     }
     play() {
-        if (!isXp)
+        if (!isXp) {
             background(isBgImg ? bgImg : 51);
+        }
+        else if (isXp && !hadBg) {
+            background(isBgImg ? bgImg : 51);
+            hadBg = true;
+        }
         this._balls.show();
         this._balls.update();
         goal = Math.round(50 * balls.length / targetDi);
