@@ -282,8 +282,7 @@ class MatesGame {
         matesCount++;
         sp_remBalls.innerHTML = balls_count - matesCount;
 
-        var targetColor = `rgb(${color.r},${color.g},${color.b})`;
-        this.setFlash(targetColor);
+        this.setFlash('red');
         currentScore += goal;
         scoreValEl.innerHTML = currentScore;
         if (currentScore > highestScore) {
