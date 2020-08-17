@@ -12,7 +12,6 @@ class Ball {
         this.pos = createVector(b.x, b.y);
         this.vel = createVector(random(-2, 5), random(-2, 5)).setMag(random(3, 5));
         this.di = b.di;
-        this.color = b.color;
     }
 }
 var targetDi;
