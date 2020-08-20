@@ -9,6 +9,9 @@ const ENTER_CODE = 13;
 const SPACE_CODE = 32;
 const R_CODE = 82;
 const GRAY = '#b1b1b1';
+const GRAY51 = 51;
+const ACC = 3;
+const MAX_VEL = 2;
 var balls_count = 5;
 var highestScore = 0;
 var highestLevel = 0;
@@ -23,6 +26,7 @@ var bgImg;
 var isDm = false;
 var isXp = false;
 var hadBg = false;
+
 //#region HTML tags
 var scoreValEl;
 var scoreDiv;
@@ -78,7 +82,7 @@ class MatesGame {
         var url_xp = url.searchParams.get("xp_mode");
 
         if (url_balls !== null)
-            balls_count = Math.min(Math.max(parseInt(url_balls), 0), 50);
+            balls_count = Math.min(Math.max(parseInt(url_balls), 0), MAX_BALLS);
         if (url_dm !== null)
             isDm = url_dm == '1' || url_dm.toLowerCase() == 'true';
         if (url_bimg !== null)
@@ -179,10 +183,10 @@ class MatesGame {
     }
     play() {
         if (!isXp) {
-            background(isBgImg ? bgImg : 51);
+            background(isBgImg ? bgImg : GRAY51);
         }
         else if (isXp && !hadBg) {
-            background(isBgImg ? bgImg : 51);
+            background(isBgImg ? bgImg : GRAY51);
             hadBg = true;
         }
         this._balls.show();
@@ -194,12 +198,13 @@ class MatesGame {
         this.acc.set(0, 0);
         this.vel.add(this.acc);
         this.pos.add(this.vel);
+        var a = createVector(0, 0);
 
 
         if (keyIsDown(UP_ARROW)) {
             this.vel.x = 0
-            var a = createVector(0, -1.5);
-            if (this.vel.y <= -2)
+            a = createVector(0, -ACC);
+            if (this.vel.y <= -MAX_VEL)
                 a = createVector(0, 0);
             this.acc.add(a);
             this.vel.add(this.acc);
@@ -208,8 +213,8 @@ class MatesGame {
 
         if (keyIsDown(DOWN_ARROW)) {
             this.vel.x = 0
-            var a = createVector(0, 1.5);
-            if (this.vel.y > 2)
+            a = createVector(0, ACC);
+            if (this.vel.y > MAX_VEL)
                 a = createVector(0, 0);
 
             this.acc.add(a);
@@ -220,8 +225,8 @@ class MatesGame {
 
         if (keyIsDown(RIGHT_ARROW)) {
             this.vel.y = 0
-            var a = createVector(1.5, 0);
-            if (this.vel.x > 2)
+            a = createVector(ACC, 0);
+            if (this.vel.x > MAX_VEL)
                 a = createVector(0, 0);
 
             this.acc.add(a);
@@ -231,8 +236,8 @@ class MatesGame {
 
         if (keyIsDown(LEFT_ARROW)) {
             this.vel.y = 0
-            var a = createVector(-1.5, 0);
-            if (this.vel.x <= -2)
+            a = createVector(-ACC, 0);
+            if (this.vel.x <= -MAX_VEL)
                 a = createVector(0, 0);
 
             this.acc.add(a);
@@ -258,7 +263,7 @@ class MatesGame {
                 //compare with horizontal
                 if (Math.abs(ball.pos.x - (this.pos.x + side / 2)) <= touched) {
                     if (ball.isTarget && survived)
-                        this.achievedGoal(ball.color);
+                        this.achievedGoal();
 
                     else if (!ball.isTarget)
                         this.failedGoal();
@@ -269,7 +274,7 @@ class MatesGame {
                 //compare with vertical
                 if (Math.abs(ball.pos.y - (this.pos.y + side / 2)) <= touched) {
                     if (ball.isTarget && survived)
-                        this.achievedGoal(ball.color);
+                        this.achievedGoal();
 
                     else if (!ball.isTarget)
                         this.failedGoal();
@@ -277,7 +282,7 @@ class MatesGame {
             }
         }
     }
-    achievedGoal(color) {
+    achievedGoal() {
         balls.pop();
         matesCount++;
         sp_remBalls.innerHTML = balls_count - matesCount;
