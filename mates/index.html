@@ -124,7 +124,16 @@
     function draw() {
         game.play();
     }
-
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
+  if(windowHeight > windowWidth){
+    factor = windowHeight;
+    factdiv = 1080;
+  }else{
+    factor = windowWidth;
+    factdiv = 1920;
+  }
+}
 </script>
 </body>
 
