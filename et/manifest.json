@@ -2,7 +2,7 @@
   "name": "Expenses Tracker",
   "short_name": "et",
   "description": "Expenses Tracker",
-  "start_url": "/",
+  "start_url": "/et",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#3367D6",
