@@ -5,7 +5,7 @@ const CACHE_NAME = 'my-site-cache-v1';
 
 // Files to cache
 const urlsToCache = [
-  '/index.html'
+  '/et/index.html'
 ];
 
 // Install the service worker
