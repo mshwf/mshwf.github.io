@@ -157,10 +157,10 @@ function exportData() {
 
     // Create a CSV content
     var csvContent = 'data:text/csv;charset=utf-8,';
-    csvContent += 'amount,category,notes,date\n';
+    csvContent += 'id,amount,category,notes,date\n';
 
     expenses.forEach(function (expense) {
-        csvContent += `${expense.amount},"${expense.category}","${expense.notes}","${expense.date}"\n`;
+        csvContent += `${expense.id},${expense.amount},"${expense.category}","${expense.notes}","${expense.date}"\n`;
     });
 
     // Create a link and trigger a download
@@ -196,6 +196,11 @@ function parseCSV(csv) {
                 // Remove leading/trailing quotes and unescape escaped quotes
                 var key = headers[j].trim();
                 var value = data[j].trim().replace(/^"(.*)"$/, '$1').replace(/\\"/g, '"');
+                if (key === "id")
+                    value = parseInt(value)
+                else if (key === "amount")
+                    value = parseFloat(value)
+                
                 item[key] = value;
             }
             result.push(item);
