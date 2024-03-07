@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Days Since Jan 27th, 2024</title>
+</head>
+<body>
+
+<h1>Days Since Jan 27th, 2024</h1>
+
+<div id="monthsAndDaysCounter"></div>
+<div id="daysCounter"></div>
+
+<script>
+    // Set the target date (Jan 27th, 2024)
+    const targetDate = new Date('2024-01-27T00:00:00');
+
+    // Calculate the difference in milliseconds
+    const currentDate = new Date();
+    const timeDifference = currentDate - targetDate;
+
+    // Calculate the number of days
+    const daysDifference = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+
+    // Calculate months and remaining days
+    const months = Math.floor(daysDifference / 30);
+    const remainingDays = daysDifference % 30;
+
+    // Display the counters
+    document.getElementById('monthsAndDaysCounter').innerHTML = `<h2>${months} months and ${remainingDays} days</h2>`;
+    document.getElementById('daysCounter').innerHTML = `<p>${daysDifference} days</p>`;
+</script>
+
+</body>
+</html>
