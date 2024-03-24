@@ -1,1 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Table with Input and Checkbox</title>
+<style>
+    table {
+        border-collapse: collapse;
+    }
+    table, th, td {
+        border: 1px solid black;
+    }
+    input[type="text"] {
+        width: 50px;
+    }
+    .checkbox-label {
+        display: inline-block;
+        width: 16px;
+        height: 16px;
+        background-color: #fff;
+        border: 1px solid #ccc;
+    }
+    .checkbox-label input[type="checkbox"] {
+        display: none;
+    }
+    .checkbox-label input[type="checkbox"]:checked + .checkbox-custom {
+        background-color: green;
+    }
+</style>
+</head>
+<body>
+<table>
+    <thead>
+        <tr>
+            <th>Column 1</th>
+            <th>Column 2</th>
+            <th>Column 3</th>
+            <th>Column 4</th>
+            <th>Column 5</th>
+            <th>Column 6</th>
+            <th>Column 7</th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- Creating 4 rows -->
+        <tr>
+            <!-- Creating 7 cells in each row -->
+            <td><input type="text" maxlength="2" id="cell00"><label class="checkbox-label"><input type="checkbox" id="checkbox00" class="checkbox-custom"> </label></td>
+            <td><input type="text" maxlength="2" id="cell01"><label class="checkbox-label"><input type="checkbox" id="checkbox01" class="checkbox-custom"> </label></td>
+            <td><input type="text" maxlength="2" id="cell02"><label class="checkbox-label"><input type="checkbox" id="checkbox02" class="checkbox-custom"> </label></td>
+            <td><input type="text" maxlength="2" id="cell03"><label class="checkbox-label"><input type="checkbox" id="checkbox03" class="checkbox-custom"> </label></td>
+            <td><input type="text" maxlength="2" id="cell04"><label class="checkbox-label"><input type="checkbox" id="checkbox04" class="checkbox-custom"> </label></td>
+            <td><input type="text" maxlength="2" id="cell05"><label class="checkbox-label"><input type="checkbox" id="checkbox05" class="checkbox-custom"> </label></td>
+            <td><input type="text" maxlength="2" id="cell06"><label class="checkbox-label"><input type="checkbox" id="checkbox06" class="checkbox-custom"> </label></td>
+        </tr>
+        <!-- Repeat the above row three more times to create 4 rows total -->
+        <!-- You can use JavaScript to generate these rows dynamically -->
+    </tbody>
+</table>
 
+<script>
+    // Function to save state to local storage when checkbox is checked
+    function saveState(cellId, checkboxId) {
+        const cellValue = document.getElementById(cellId).value;
+        const isChecked = document.getElementById(checkboxId).checked;
+        localStorage.setItem(cellId, cellValue);
+        localStorage.setItem(checkboxId, isChecked);
+    }
+
+    // Function to load state from local storage
+    function loadState(cellId, checkboxId) {
+        const cellValue = localStorage.getItem(cellId);
+        const isChecked = localStorage.getItem(checkboxId);
+
+        if (cellValue !== null) {
+            document.getElementById(cellId).value = cellValue;
+        }
+
+        if (isChecked !== null) {
+            document.getElementById(checkboxId).checked = (isChecked === "true");
+        }
+    }
+
+    // Load initial state when the page loads
+    window.onload = function() {
+        loadState("cell00", "checkbox00");
+        loadState("cell01", "checkbox01");
+        loadState("cell02", "checkbox02");
+        loadState("cell03", "checkbox03");
+        loadState("cell04", "checkbox04");
+        loadState("cell05", "checkbox05");
+        loadState("cell06", "checkbox06");
+
+        // Add event listeners to inputs and checkboxes to save state when changed
+        document.querySelectorAll('input[type="text"]').forEach(input => {
+            input.addEventListener("input", function() {
+                saveState(this.id, this.id.replace("cell", "checkbox"));
+            });
+        });
+
+        document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+            checkbox.addEventListener("change", function() {
+                saveState(this.id.replace("checkbox", "cell"), this.id);
+            });
+        });
+    };
+</script>
+</body>
+</html>
