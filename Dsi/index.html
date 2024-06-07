@@ -9,27 +9,40 @@
 
 <h1>Days Since Jan 27th, 2024</h1>
 
-<div id="monthsAndDaysCounter"></div>
-<div id="daysCounter"></div>
+<div id="monthsAndDaysCounter_inj"></div>
+<div id="daysCounter_inj"></div>
+    
+<h1>Days Since May 23th, 2024</h1>
+
+<div id="monthsAndDaysCounter_op"></div>
+<div id="daysCounter_op"></div>
 
 <script>
     // Set the target date (Jan 27th, 2024)
-    const targetDate = new Date('2024-01-27T00:00:00');
-
+    const targetDate_inj = new Date('2024-01-27T00:00:00');
+    const targetDate_op = new Date('2024-05-23T00:00:00');
     // Calculate the difference in milliseconds
     const currentDate = new Date();
-    const timeDifference = currentDate - targetDate;
+    const timeDifference_inj = currentDate - targetDate_inj;
+    const timeDifference_op = currentDate - targetDate_op;
 
     // Calculate the number of days
-    const daysDifference = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
-
+    const daysDifference_inj = Math.floor(timeDifference_inj / (1000 * 60 * 60 * 24));
+    const daysDifference_op = Math.floor(timeDifference_op / (1000 * 60 * 60 * 24));
+    
     // Calculate months and remaining days
-    const months = Math.floor(daysDifference / 30);
-    const remainingDays = daysDifference % 30;
+    const months_inj = Math.floor(daysDifference_inj / 30);
+    const remainingDays_inj = daysDifference_inj % 30;
+
+    const months_op = Math.floor(daysDifference_op / 30);
+    const remainingDays_op = daysDifference_op % 30;
 
     // Display the counters
-    document.getElementById('monthsAndDaysCounter').innerHTML = `<h2>${months} months and ${remainingDays} days</h2>`;
-    document.getElementById('daysCounter').innerHTML = `<p>${daysDifference} days</p>`;
+    document.getElementById('monthsAndDaysCounter_inj').innerHTML = `<h2>${months_inj} months and ${remainingDays_inj} days</h2>`;
+    document.getElementById('daysCounter_inj').innerHTML = `<p>${daysDifference_inj} days</p>`;
+ 
+    document.getElementById('monthsAndDaysCounter_op').innerHTML = `<h2>${months_op} months and ${remainingDays_op} days</h2>`;
+    document.getElementById('daysCounter_inj').innerHTML = `<p>${daysDifference_op} days</p>`;
 </script>
 
 </body>
